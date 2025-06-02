@@ -10,6 +10,10 @@ repositories {
 }
 
 dependencies {
+    //CSV
+    implementation("com.opencsv:opencsv:5.7.1")
+
+    //Tests
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
