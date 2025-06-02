@@ -1,4 +1,4 @@
-package um.edu.uy;
+package main.java.um.edu.uy;
 
 import java.util.Scanner;
 
@@ -64,7 +64,7 @@ public class Main {
 
                 }
             }
-            else if (seleccion1 == 3) {
+            else if (seleccion1 == 3) { //Romper el while definitivo...
                 return;
             }
         }

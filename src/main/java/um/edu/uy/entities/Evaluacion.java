@@ -1,4 +1,4 @@
-package um.edu.uy.entities;
+package main.java.um.edu.uy.entities;
 
 public class Evaluacion {
     private int idUsuario;
