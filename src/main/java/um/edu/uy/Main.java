@@ -1,7 +1,6 @@
 package um.edu.uy;
 
 import java.util.Scanner;
-import um.edu.uy.entities.UMovie;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,7 +19,7 @@ public class Main {
             int seleccion1 = input.nextInt();
 
             if (seleccion1 == 1) {
-                cargarPeliculas
+                // Cargar datos
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {

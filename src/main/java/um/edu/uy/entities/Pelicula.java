@@ -1,15 +1,23 @@
 package um.edu.uy.entities;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 import java.util.List;
 
 public class Pelicula {
+    @CsvBindByPosition(position = 5)
     private int id;
+    @CsvBindByPosition(position = 18)
     private String titulo;
+    @CsvBindByPosition(position = 7)
     private String idiomaOriginal;
+    @CsvBindByPosition(position = 13)
     private double ingresos;
+    @CsvBindByPosition(position = 3)
     private List<Genero> generos;
-    private double calificacionMedia;
+    @CsvBindByPosition(position = 1)
     private Coleccion coleccion;
+    private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
 
     public Pelicula() {
