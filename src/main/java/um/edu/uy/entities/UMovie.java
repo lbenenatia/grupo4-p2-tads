@@ -1,5 +1,8 @@
 package um.edu.uy.entities;
 
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
