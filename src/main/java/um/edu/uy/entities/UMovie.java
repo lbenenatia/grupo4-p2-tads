@@ -1,6 +1,5 @@
 package um.edu.uy.entities;
 
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UMovie {
-    private List<Pelicula> peliculas; //UsarHash
+    private List<Pelicula> peliculas;
     private List<Coleccion> colecciones;
 
     public UMovie(List<Pelicula> peliculas) {
@@ -18,10 +17,6 @@ public class UMovie {
     public void cargarPeliculas(String nombreArchivo) {
         try (FileReader fileReader = new FileReader(nombreArchivo)) {
             CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(fileReader).withType(Pelicula.class).withSkipLines(1).build();
-
-            for (Pelicula pelicula : csvToBean) {
-                this.peliculas.add(pelicula);
-            }
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

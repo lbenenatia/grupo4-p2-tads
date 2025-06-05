@@ -64,7 +64,7 @@ public class Main {
 
                 }
             }
-            else if (seleccion1 == 3) {
+            else if (seleccion1 == 3) { // Break
                 return;
             }
         }
