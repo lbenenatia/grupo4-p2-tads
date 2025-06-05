@@ -64,7 +64,7 @@ public class Main {
 
                 }
             }
-            else if (seleccion1 == 3) { //Romper el while definitivo...
+            else if (seleccion1 == 3) {
                 return;
             }
         }
