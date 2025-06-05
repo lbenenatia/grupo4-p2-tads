@@ -21,6 +21,10 @@ public class UMovie {
         try (FileReader fileReader = new FileReader(nombreArchivo)) {
             CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(fileReader).withType(Pelicula.class).withSkipLines(1).build();
 
+            for (Pelicula pelicula : peliculas) {
+                peliculas.add(pelicula);
+            }
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
