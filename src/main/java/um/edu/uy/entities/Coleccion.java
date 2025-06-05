@@ -1,4 +1,4 @@
-package main.java.um.edu.uy.entities;
+package um.edu.uy.entities;
 
 import java.util.List;
 

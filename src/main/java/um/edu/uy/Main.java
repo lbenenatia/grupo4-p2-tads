@@ -1,4 +1,4 @@
-package main.java.um.edu.uy;
+package um.edu.uy;
 
 import java.util.Scanner;
 
