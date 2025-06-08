@@ -1,6 +1,6 @@
 package um.edu.uy.entities;
 
-public class Evaluacion {
+public class Evaluacion implements Comparable<Evaluacion> {
     private int idUsuario;
     private int idPelicula;
     private double puntaje;
@@ -9,6 +9,11 @@ public class Evaluacion {
         this.idUsuario = idUsuario;
         this.idPelicula = idPelicula;
         this.puntaje = puntaje;
+    }
+
+    @Override
+    public int compareTo(Evaluacion otraEvaluacion) {
+        return Double.compare(this.puntaje, otraEvaluacion.puntaje);
     }
 
     public int getIdUsuario() {

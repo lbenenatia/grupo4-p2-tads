@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByPosition;
 
 import java.util.List;
 
-public class Pelicula {
+public class Pelicula implements Comparable<Pelicula> {
     @CsvBindByPosition(position = 5)
     private int id;
     @CsvBindByPosition(position = 18)
@@ -38,6 +38,11 @@ public class Pelicula {
         }
 
         this.calificacionMedia = puntajeTotal / this.evaluaciones.size();
+    }
+
+    @Override
+    public int compareTo(Pelicula otraPelicula) {
+        return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
     }
 
     public int getId() {
