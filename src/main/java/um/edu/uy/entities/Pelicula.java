@@ -2,7 +2,7 @@ package um.edu.uy.entities;
 
 import java.util.List;
 
-public class Pelicula implements Comparable<Pelicula> {
+public class Pelicula implements Comparable<Pelicula> , Ingresable {
     private int id;
     private String titulo;
     private String idiomaOriginal;
@@ -32,6 +32,14 @@ public class Pelicula implements Comparable<Pelicula> {
         this.calificacionMedia = puntajeTotal / this.evaluaciones.size();
     }
 
+    public void agregarEvaluacion(Evaluacion e) {
+        this.evaluaciones.add(e);
+    }
+
+    public int cantidadEvaluaciones() {
+        return this.getEvaluaciones().size();
+    }
+
     @Override
     public int compareTo(Pelicula otraPelicula) {
         return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
@@ -44,7 +52,7 @@ public class Pelicula implements Comparable<Pelicula> {
     public void setId(int id) {
         this.id = id;
     }
-
+    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -60,7 +68,7 @@ public class Pelicula implements Comparable<Pelicula> {
     public void setIdiomaOriginal(String idiomaOriginal) {
         this.idiomaOriginal = idiomaOriginal;
     }
-
+    @Override
     public double getIngresos() {
         return ingresos;
     }

@@ -1,13 +1,17 @@
 package um.edu.uy.entities;
 
+import com.opencsv.bean.CsvCustomBindByPosition;
+import um.edu.uy.converter.IdColeccionJson;
+import um.edu.uy.converter.TituloColeccionJson;
+
 import java.util.List;
 
-public class Coleccion {
-//    @CsvCustomBindByPosition(position = 1, converter = IdColeccionJson.class)
+public class Coleccion implements Ingresable {
+    @CsvCustomBindByPosition(position = 1, converter = IdColeccionJson.class)
     private int id;
     private List<Pelicula> peliculas;
     private double ingresos;
-//    @CsvCustomBindByPosition(position = 1, converter = TituloColeccionJson.class)
+    @CsvCustomBindByPosition(position = 1, converter = TituloColeccionJson.class)
     private String titulo;
 
     public Coleccion() {
@@ -38,7 +42,7 @@ public class Coleccion {
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
-
+    @Override
     public double getIngresos() {
         return ingresos;
     }
@@ -46,7 +50,7 @@ public class Coleccion {
     public void setIngresos(double ingresos) {
         this.ingresos = ingresos;
     }
-
+    @Override
     public String getTitulo() {
         return titulo;
     }
