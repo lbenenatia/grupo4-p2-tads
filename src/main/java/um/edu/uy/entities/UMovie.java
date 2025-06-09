@@ -1,34 +1,77 @@
 package um.edu.uy.entities;
 
+import com.google.gson.Gson;
+import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvValidationException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UMovie {
     private List<Pelicula> peliculas;
-    private List<Coleccion> colecciones;
+    private Map<Integer,Coleccion> colecciones; ///cuando haya que crear es mas eficiente para ver si existe
 
     public UMovie(List<Pelicula> peliculas) {
-        this.peliculas = new ArrayList<>();
+        this.peliculas = new ArrayList<>(); // Usar hash
+        this.colecciones = new HashMap<>();
     }
 
     public void cargarPeliculas(String nombreArchivo) {
-        try (FileReader fileReader = new FileReader(nombreArchivo)) {
-            CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(fileReader).withType(Pelicula.class).withSkipLines(1).build();
+        try (CSVReader reader = new CSVReader(new FileReader(nombreArchivo))) {
+            String[] linea;
+            try { //Ver esto
+                reader.readNext();
+            } catch (CsvValidationException e) {
+                throw new RuntimeException(e);
+            }
+            while ((linea = reader.readNext()) != null) { //ver manejo de excepción
+                Pelicula pelicula = mapLineaToPelicula(linea);
 
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                String coleccionJson = linea[1];
+
+                if (!coleccionJson.trim().isEmpty()) {
+                    pelicula.setPerteneceAColeccion(true);
+                    Gson gson = new Gson();
+                    Coleccion coleccion = gson.fromJson(coleccionJson, Coleccion.class);
+                    Coleccion coleccionExistente = colecciones.get(coleccion.getId()); //seria usar el pertence de hash
+                    if (coleccionExistente == null) { //sería si es true
+                        colecciones.put(coleccion.getId(), coleccion);
+                        coleccionExistente = coleccion;
+                    }
+                    coleccionExistente.agregarPelicula(pelicula);
+                }
+
+                /// Habría que hacer lo mismo con el género para crearlo, asignarlo y agregarlo a una estructura
+                peliculas.add(pelicula);
+            }
         }
 
 
+        CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(fileReader).withType(Pelicula.class).withSkipLines(1).build();
+
+        for (Pelicula pelicula : csvToBean) {
+            this.peliculas.add(pelicula);
+        }
+    catch(IOException e) {
+        e.printStackTrace();
+    }
         //Hacer el try/catch
+    }
+
+    public Pelicula mapLineaToPelicula(String[] linea) {
+        Pelicula p = new Pelicula();
+        p.setId(Integer.parseInt(linea[5]));
+        p.setTitulo(linea[18]);
+        p.setIdiomaOriginal(linea[7]);
+        p.setIngresos(Double.parseDouble(linea[13]));
+        return p;
     }
 
     public void cargarEvaluaciones(String nombreArchivo) {
@@ -54,6 +97,7 @@ public class UMovie {
     }
 
     public ListaPeliculas filtrarPeliculas() {
+        //Usaría arrays de tamaño 5
         List<Pelicula> ingles = new ArrayList<>();
         List<Pelicula> frances = new ArrayList<>();
         List<Pelicula> espaniol = new ArrayList<>();

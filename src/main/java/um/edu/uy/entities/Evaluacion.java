@@ -1,8 +1,13 @@
 package um.edu.uy.entities;
 
+import com.opencsv.bean.CsvBindByPosition;
+
 public class Evaluacion implements Comparable<Evaluacion> {
+    @CsvBindByPosition(position = 0)
     private int idUsuario;
+    @CsvBindByPosition(position = 1)
     private int idPelicula;
+    @CsvBindByPosition(position = 2)
     private double puntaje;
 
     public Evaluacion() {

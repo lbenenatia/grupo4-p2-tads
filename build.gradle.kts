@@ -12,6 +12,8 @@ repositories {
 dependencies {
     //CSV
     implementation("com.opencsv:opencsv:5.7.1")
+    //GSON
+    implementation ("com.google.code.gson:gson:2.10.1")
 
     //Tests
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
