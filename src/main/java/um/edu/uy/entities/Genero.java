@@ -13,6 +13,10 @@ public class Genero implements Comparable<Genero> {
         this.evaluaciones = evaluaciones;
     }
 
+    public void agregarEvaluacion(Evaluacion e) {
+        this.evaluaciones.add(e);
+    }
+
     @Override
     public int compareTo(Genero otroGenero) {
         return Integer.compare(this.getEvaluaciones().size(), otroGenero.getEvaluaciones().size());
