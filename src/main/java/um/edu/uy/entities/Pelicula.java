@@ -1,7 +1,5 @@
 package um.edu.uy.entities;
 
-import com.opencsv.bean.CsvBindByPosition;
-
 import java.util.List;
 
 public class Pelicula implements Comparable<Pelicula> {
@@ -13,7 +11,6 @@ public class Pelicula implements Comparable<Pelicula> {
     private boolean perteneceAColeccion = false; ///Actualizarla cuando tiene
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
-    /// Agregar fecha
 
     public Pelicula() {
         this.id = id;
