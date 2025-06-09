@@ -51,17 +51,19 @@ public class UMovie {
                 /// Habría que hacer lo mismo con el género para crearlo, asignarlo y agregarlo a una estructura
                 peliculas.add(pelicula);
             }
+        } catch (FileNotFoundException | CsvValidationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
 
-        CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(fileReader).withType(Pelicula.class).withSkipLines(1).build();
+//        CsvToBean<Pelicula> csvToBean = new CsvToBeanBuilder<Pelicula>(FileReader).withType(Pelicula.class).withSkipLines(1).build();
+//
+//        for (Pelicula pelicula : csvToBean) {
+//            this.peliculas.add(pelicula);
+//        }
 
-        for (Pelicula pelicula : csvToBean) {
-            this.peliculas.add(pelicula);
-        }
-    catch(IOException e) {
-        e.printStackTrace();
-    }
         //Hacer el try/catch
     }
 
