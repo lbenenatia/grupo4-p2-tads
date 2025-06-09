@@ -3,18 +3,18 @@ package um.edu.uy.entities;
 import java.util.List;
 
 public class ListaPeliculas {
-    private List<Pelicula> ingles;
-    private List<Pelicula> frances;
-    private List<Pelicula> espaniol;
-    private List<Pelicula> italiano;
-    private List<Pelicula> portugues;
+    private Pelicula[] ingles;
+    private Pelicula[] frances;
+    private Pelicula[] espaniol;
+    private Pelicula[] italiano;
+    private Pelicula[] portugues;
 
-    public ListaPeliculas(List<Pelicula> ingles, List<Pelicula> frances, List<Pelicula> espaniol, List<Pelicula> italiano, List<Pelicula> portugues) {
-            this.ingles = ingles;
-            this.frances = frances;
-            this.espaniol = espaniol;
-            this.italiano = italiano;
-            this.portugues = portugues;
+    public ListaPeliculas(Pelicula[] ingles, Pelicula[] frances, Pelicula[] espaniol, Pelicula[] italiano, Pelicula[] portugues) {
+            this.ingles = new Pelicula[5];
+            this.frances = new Pelicula[5];
+            this.espaniol = new Pelicula[5];
+            this.italiano = new Pelicula[5];
+            this.portugues = new Pelicula[5];
         }
 
     @Override
@@ -39,43 +39,43 @@ public class ListaPeliculas {
         return display.toString();
     }
 
-    public List<Pelicula> getIngles() {
+    public Pelicula[] getIngles() {
         return ingles;
     }
 
-    public void setIngles(List<Pelicula> ingles) {
+    public void setIngles(Pelicula[] ingles) {
         this.ingles = ingles;
     }
 
-    public List<Pelicula> getFrances() {
+    public Pelicula[] getFrances() {
         return frances;
     }
 
-    public void setFrances(List<Pelicula> frances) {
+    public void setFrances(Pelicula[] frances) {
         this.frances = frances;
     }
 
-    public List<Pelicula> getEspaniol() {
+    public Pelicula[] getEspaniol() {
         return espaniol;
     }
 
-    public void setEspaniol(List<Pelicula> espaniol) {
+    public void setEspaniol(Pelicula[] espaniol) {
         this.espaniol = espaniol;
     }
 
-    public List<Pelicula> getItaliano() {
+    public Pelicula[] getItaliano() {
         return italiano;
     }
 
-    public void setItaliano(List<Pelicula> italiano) {
+    public void setItaliano(Pelicula[] italiano) {
         this.italiano = italiano;
     }
 
-    public List<Pelicula> getPortugues() {
+    public Pelicula[] getPortugues() {
         return portugues;
     }
 
-    public void setPortugues(List<Pelicula> portugues) {
+    public void setPortugues(Pelicula[] portugues) {
         this.portugues = portugues;
     }
 }

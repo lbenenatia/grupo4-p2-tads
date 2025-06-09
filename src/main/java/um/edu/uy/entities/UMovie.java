@@ -109,71 +109,75 @@ public class UMovie {
 
     public ListaPeliculas filtrarPeliculas() {
         //Usaría arrays de tamaño 5
-        List<Pelicula> ingles = new ArrayList<>();
-        List<Pelicula> frances = new ArrayList<>();
-        List<Pelicula> espaniol = new ArrayList<>();
-        List<Pelicula> italiano = new ArrayList<>();
-        List<Pelicula> portugues = new ArrayList<>();
+        Pelicula[] ingles = new Pelicula[5];
+        Pelicula[] frances = new Pelicula[5];
+        Pelicula[] espaniol = new Pelicula[5];
+        Pelicula[] italiano = new Pelicula[5];
+        Pelicula[] portugues = new Pelicula[5];
+        int posVaciaEn = 0;
+        int posVaciaFr = 0;
+        int posVaciaEs = 0;
+        int posVaciaIt = 0;
+        int posVaciaPt = 0;
 
         for (Pelicula pelicula : peliculas.values()) { /// En nuestro caso probablemente tengamos que recorrer con un i
             String idioma = pelicula.getIdiomaOriginal();
-
             if (idioma.equals("en")) {
-                if (ingles.size() < 5) {
+                if (posVaciaEn  < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    ingles.add(pelicula);
+                    ingles[posVaciaEn ] = pelicula;
+                    posVaciaEn ++;
                 } else {
-                    if (pelicula.getEvaluaciones().size() > ingles.getFirst().getEvaluaciones().size()) {
-                        ingles.removeFirst();
-                        ingles.add(pelicula);
+                    if (pelicula.cantidadEvaluaciones() > ingles[0].cantidadEvaluaciones()) {
+                        ingles[0] = pelicula;
                         //...Reordenar...
                     }
                 }
             }
             if (idioma.equals("fr")) {
-                if (frances.size() < 5) {
+                if (posVaciaFr  < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    frances.add(pelicula);
+                    frances[posVaciaFr ] = pelicula;
+                    posVaciaFr ++;
                 } else {
-                    if (pelicula.getEvaluaciones().size() > frances.getFirst().getEvaluaciones().size()) {
-                        frances.removeFirst();
-                        frances.add(pelicula);
+                    if (pelicula.cantidadEvaluaciones() > frances[0].cantidadEvaluaciones()) {
+                        frances[0] = pelicula;
                         //...Reordenar...
                     }
                 }
             }
             if (idioma.equals("es")) {
-                if (espaniol.size() < 5) {
+                if (posVaciaEs < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    espaniol.add(pelicula);
+                    ingles[posVaciaEs ] = pelicula;
+                    posVaciaEs ++;
                 } else {
-                    if (pelicula.getEvaluaciones().size() > espaniol.getFirst().getEvaluaciones().size()) {
-                        espaniol.removeFirst();
-                        espaniol.add(pelicula);
+                    if (pelicula.cantidadEvaluaciones() > espaniol[0].cantidadEvaluaciones()) {
+                        espaniol[0] = pelicula;
                         //...Reordenar...
                     }
                 }
             }
             if (idioma.equals("it")) {
-                if (italiano.size() < 5) {
+                if (posVaciaIt  < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    italiano.add(pelicula);
+                    ingles[posVaciaIt ] = pelicula;
+                    posVaciaIt ++;
                 } else {
-                    if (pelicula.getEvaluaciones().size() > italiano.getFirst().getEvaluaciones().size()) {
-                        italiano.removeFirst();
-                        italiano.add(pelicula);
+                    if (pelicula.cantidadEvaluaciones() > italiano[0].cantidadEvaluaciones()) {
+                        italiano[0] = pelicula;
                         //...Reordenar...
                     }
                 }
             }
             if (idioma.equals("pt")) {
-                if (portugues.size() < 5) {
+                if (posVaciaPt < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    portugues.add(pelicula);
+                    ingles[posVaciaPt] = pelicula;
+                    posVaciaPt ++;
                 } else {
-                    if (pelicula.getEvaluaciones().size() > portugues.getFirst().getEvaluaciones().size()) {
-                        portugues.removeFirst();
-                        portugues.add(pelicula);
+                    if (pelicula.cantidadEvaluaciones() > portugues[0].cantidadEvaluaciones()) {
+                        portugues[0] = pelicula;
                         //...Reordenar...
                     }
                 }

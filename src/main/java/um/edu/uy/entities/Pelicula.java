@@ -39,6 +39,10 @@ public class Pelicula implements Comparable<Pelicula> {
         this.evaluaciones.add(e);
     }
 
+    public int cantidadEvaluaciones() {
+        return this.getEvaluaciones().size();
+    }
+
     @Override
     public int compareTo(Pelicula otraPelicula) {
         return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
