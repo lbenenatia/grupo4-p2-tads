@@ -107,6 +107,8 @@ public class UMovie {
     }
     }
 
+    /// Falta cargar actores y directores del csv credits
+
     public ListaPeliculas filtrarPeliculas() {
         //Usaría arrays de tamaño 5
         Pelicula[] ingles = new Pelicula[5];
