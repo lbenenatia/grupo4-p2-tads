@@ -1,7 +1,5 @@
 package um.edu.uy.entities;
 
-import java.util.List;
-
 public class ListaPeliculas {
     private Pelicula[] ingles;
     private Pelicula[] frances;
