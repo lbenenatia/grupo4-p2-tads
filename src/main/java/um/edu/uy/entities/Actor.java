@@ -5,11 +5,15 @@ import java.util.List;
 public class Actor {
     private String nombre;
     private List<Pelicula> peliculas;
+    private int cantidadPeliculasPorMes;
 
     public Actor() {
         this.peliculas = peliculas;
         this.nombre = nombre;
+        this.cantidadPeliculasPorMes = 0;
     }
+
+    public void actualizarCantidad(String mes){}
 
     /// Ver tema tiempo/mes de las peliculas
 

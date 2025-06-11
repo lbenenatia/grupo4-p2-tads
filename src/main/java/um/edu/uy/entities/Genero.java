@@ -2,7 +2,7 @@ package um.edu.uy.entities;
 
 import java.util.List;
 
-public class Genero {
+public class Genero implements Comparable<Genero> {
     private int id;
     private String nombre;
     private List<Evaluacion> evaluaciones;
@@ -11,6 +11,15 @@ public class Genero {
         this.id = id;
         this.nombre = nombre;
         this.evaluaciones = evaluaciones;
+    }
+
+    public void agregarEvaluacion(Evaluacion e) {
+        this.evaluaciones.add(e);
+    }
+
+    @Override
+    public int compareTo(Genero otroGenero) {
+        return Integer.compare(this.getEvaluaciones().size(), otroGenero.getEvaluaciones().size());
     }
 
     public int getId() {

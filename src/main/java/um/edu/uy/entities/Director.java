@@ -15,7 +15,7 @@ public class Director {
     }
 
     /// Precisamos tener la lista ordenada
-    public void calcularMediana() {
+    public void calcularMediana() { /// Preguntar si hacer mediana gral o a las medias de cada pelicula
         List<Double> listaPuntajes = new ArrayList<>();
 
         for (Pelicula p : this.peliculas) {

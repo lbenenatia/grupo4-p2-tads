@@ -4,21 +4,16 @@ import com.opencsv.bean.CsvBindByPosition;
 
 import java.util.List;
 
-public class Pelicula {
-    @CsvBindByPosition(position = 5)
+public class Pelicula implements Comparable<Pelicula> , Ingresable {
     private int id;
-    @CsvBindByPosition(position = 18)
     private String titulo;
-    @CsvBindByPosition(position = 7)
     private String idiomaOriginal;
-    @CsvBindByPosition(position = 13)
     private double ingresos;
-    @CsvBindByPosition(position = 3)
-    private List<Genero> generos;
-    @CsvBindByPosition(position = 1)
-    private Coleccion coleccion;
+    private List<Genero> generos; /// Ver si es realmente necesario tener los generos en la pelicula
+    private boolean perteneceAColeccion = false; ///Actualizarla cuando tiene
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
+    /// Agregar fecha
 
     public Pelicula() {
         this.id = id;
@@ -27,7 +22,7 @@ public class Pelicula {
         this.ingresos = ingresos;
         this.generos = generos;
         this.calificacionMedia = 0;
-        this.coleccion = coleccion;
+        this.perteneceAColeccion = perteneceAColeccion;
         this.evaluaciones = evaluaciones;
     }
 
@@ -40,6 +35,19 @@ public class Pelicula {
         this.calificacionMedia = puntajeTotal / this.evaluaciones.size();
     }
 
+    public void agregarEvaluacion(Evaluacion e) {
+        this.evaluaciones.add(e);
+    }
+
+    public int cantidadEvaluaciones() {
+        return this.getEvaluaciones().size();
+    }
+
+    @Override
+    public int compareTo(Pelicula otraPelicula) {
+        return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
+    }
+
     public int getId() {
         return id;
     }
@@ -47,7 +55,7 @@ public class Pelicula {
     public void setId(int id) {
         this.id = id;
     }
-
+    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -63,7 +71,7 @@ public class Pelicula {
     public void setIdiomaOriginal(String idiomaOriginal) {
         this.idiomaOriginal = idiomaOriginal;
     }
-
+    @Override
     public double getIngresos() {
         return ingresos;
     }
@@ -88,12 +96,12 @@ public class Pelicula {
         this.calificacionMedia = calificacionMedia;
     }
 
-    public Coleccion getColeccion() {
-        return coleccion;
+    public boolean isPerteneceAColeccion() {
+        return perteneceAColeccion;
     }
 
-    public void setColeccion(Coleccion coleccion) {
-        this.coleccion = coleccion;
+    public void setPerteneceAColeccion(boolean perteneceAColeccion) {
+        this.perteneceAColeccion = perteneceAColeccion;
     }
 
     public List<Evaluacion> getEvaluaciones() {
