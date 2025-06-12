@@ -12,6 +12,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import static um.edu.uy.tads.Sorting.agregarOrdenado;
+import static um.edu.uy.tads.Sorting.ordenarPrimero;
+
 public class UMovie {
     private Map<Integer, Pelicula> peliculas;
     private Map<Integer, Coleccion> colecciones;
@@ -130,12 +133,15 @@ public class UMovie {
             String idioma = pelicula.getIdiomaOriginal();
             if (idioma.equals("en")) {
                 if (posVaciaEn < 5) {
+
                     //...Los primeros 5 tienen que estar ordenados...
-                    ingles[posVaciaEn] = pelicula;
+                    agregarOrdenado(pelicula, ingles, posVaciaEn);
+                    //ingles[posVaciaEn] = pelicula;
                     posVaciaEn++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > ingles[0].cantidadEvaluaciones()) {
                         ingles[0] = pelicula;
+                        ordenarPrimero(ingles);
                         //...Reordenar...
                     }
                 }

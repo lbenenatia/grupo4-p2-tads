@@ -1,5 +1,6 @@
 package um.edu.uy.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Genero implements Comparable<Genero> {
@@ -10,7 +11,7 @@ public class Genero implements Comparable<Genero> {
     public Genero() {
         this.id = id;
         this.nombre = nombre;
-        this.evaluaciones = evaluaciones;
+        this.evaluaciones = new ArrayList<>();
     }
 
     public void agregarEvaluacion(Evaluacion e) {
