@@ -43,3 +43,4 @@ bin/
 
 ### CSV ###
 resources/
+*.csv

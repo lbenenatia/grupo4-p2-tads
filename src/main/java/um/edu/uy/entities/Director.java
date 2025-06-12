@@ -10,7 +10,7 @@ public class Director {
 
     public Director() {
         this.nombre = nombre;
-        this.peliculas = peliculas;
+        this.peliculas = new ArrayList<>();
         this.mediana = 0;
     }
 
@@ -32,4 +32,39 @@ public class Director {
         }
     }
 
+    public int cantidadPeliculas() {
+        return this.peliculas.size();
+    }
+
+    public int cantidadEvaluaciones() {
+        int cant = 0;
+        for (Pelicula pelicula : this.peliculas) {
+            cant += pelicula.cantidadEvaluaciones();
+        }
+        return cant;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Pelicula> getPeliculas() {
+        return peliculas;
+    }
+
+    public void setPeliculas(List<Pelicula> peliculas) {
+        this.peliculas = peliculas;
+    }
+
+    public double getMediana() {
+        return mediana;
+    }
+
+    public void setMediana(double mediana) {
+        this.mediana = mediana;
+    }
 }

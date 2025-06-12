@@ -13,7 +13,9 @@ public class Actor {
         this.cantidadPeliculasPorMes = 0;
     }
 
-    public void actualizarCantidad(String mes){}
+    public void actualizarCantidad(String mes){
+
+    }
 
     /// Ver tema tiempo/mes de las peliculas
 

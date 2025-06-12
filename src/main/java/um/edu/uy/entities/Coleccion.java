@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvCustomBindByPosition;
 import um.edu.uy.converter.IdColeccionJson;
 import um.edu.uy.converter.TituloColeccionJson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Coleccion implements Ingresable {
@@ -16,15 +17,28 @@ public class Coleccion implements Ingresable {
 
     public Coleccion() {
         this.id = id;
-        this.peliculas = peliculas;
+        this.peliculas = new ArrayList<>();
         this.ingresos = 0;
         this.titulo = titulo;
     }
 
     /// Podría hacerse esto y al agregar pelicula ya se va calculando el ingreso
     public void agregarPelicula(Pelicula p) {
-            this.peliculas.add(p);
-            this.ingresos += p.getIngresos();
+        this.peliculas.add(p);
+        this.ingresos += p.getIngresos();
+    }
+
+    public int cantidadPeliculas() {
+        return this.getPeliculas().size();
+    }
+
+    public List<Integer> idPeliculas() {
+        List<Integer> ids = new ArrayList<>();
+
+        for (Pelicula pelicula : peliculas) {
+            ids.add(pelicula.getId());
+        }
+        return ids;
     }
 
     public int getId() {
@@ -42,6 +56,7 @@ public class Coleccion implements Ingresable {
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
+
     @Override
     public double getIngresos() {
         return ingresos;
@@ -50,6 +65,7 @@ public class Coleccion implements Ingresable {
     public void setIngresos(double ingresos) {
         this.ingresos = ingresos;
     }
+
     @Override
     public String getTitulo() {
         return titulo;
