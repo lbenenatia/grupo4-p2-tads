@@ -1,22 +1,35 @@
 package um.edu.uy.entities;
 
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 public class Actor {
     private String nombre;
     private List<Pelicula> peliculas;
-    private int cantidadPeliculasPorMes;
-    /// Puede llegar a ser necesario tener el id para saber cuando un actor es el mismo (2 Jorges Gonzalez distintos)
+    private Map<Integer, Integer> cantidadEvaluacionesPorMes;
+    private int idActor;
 
     public Actor() {
         this.peliculas = peliculas;
         this.nombre = nombre;
-        this.cantidadPeliculasPorMes = 0;
+        this.cantidadEvaluacionesPorMes = new Hashtable<>();
+        this.idActor = 0;
     }
 
-    public void actualizarCantidad(String mes){
-
+    public int cantidadPeliculasPorMes(int mes) {
+        int cantidad = 0;
+        for (Pelicula pelicula : peliculas) {
+            for (Evaluacion evaluacion : pelicula.getEvaluaciones()){
+                if (evaluacion.getFecha() == mes){
+                    cantidad += 1;
+                    break;
+                }
+            }
+        }
+        return cantidad;
     }
+
 
     /// Ver tema tiempo/mes de las peliculas
 
@@ -34,5 +47,21 @@ public class Actor {
 
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
+    }
+
+    public Map<Integer, Integer> getCantidadEvaluacionesPorMes() {
+        return cantidadEvaluacionesPorMes;
+    }
+
+    public void setCantidadEvaluacionesPorMes(Map<Integer, Integer> cantidadEvaluacionesPorMes) {
+        this.cantidadEvaluacionesPorMes = cantidadEvaluacionesPorMes;
+    }
+
+    public int getIdActor() {
+        return idActor;
+    }
+
+    public void setIdActor(int idActor) {
+        this.idActor = idActor;
     }
 }

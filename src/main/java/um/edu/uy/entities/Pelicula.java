@@ -10,7 +10,7 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
     private double ingresos;
     private List<Genero> generos;
     private boolean perteneceAColeccion = false;
-    /// Actualizarla cuando tiene
+    private List<Actor> actores;
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
 
@@ -22,6 +22,7 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
         this.generos = new ArrayList<>();
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
+        this.evaluaciones = new ArrayList<>();
         this.evaluaciones = evaluaciones;
     }
 
@@ -111,5 +112,13 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
 
     public void setEvaluaciones(List<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
+    }
+
+    public List<Actor> getActores() {
+        return actores;
+    }
+
+    public void setActores(List<Actor> actores) {
+        this.actores = actores;
     }
 }

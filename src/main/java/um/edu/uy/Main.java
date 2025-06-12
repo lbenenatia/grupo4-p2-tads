@@ -26,7 +26,7 @@ public class Main {
             int seleccion1 = input.nextInt();
 
             if (seleccion1 == 1) {
-                uMovie.cargarPeliculas("movies_metadata.csv");
+                uMovie.cargarPeliculas("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {

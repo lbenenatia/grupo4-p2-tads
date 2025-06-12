@@ -12,7 +12,7 @@ public class Evaluacion implements Comparable<Evaluacion> {
     @CsvBindByPosition(position = 2)
     private double puntaje;
     @CsvBindByPosition(position = 3)
-    private String fecha;
+    private int fecha;
 
     public Evaluacion() {
         this.idUsuario = idUsuario;
@@ -26,9 +26,12 @@ public class Evaluacion implements Comparable<Evaluacion> {
         return Double.compare(this.puntaje, otraEvaluacion.puntaje);
     }
 
+    /*
     public Date convertFecha(String fecha) {
         return new Date(Long.parseLong(this.fecha));
     }
+
+     */
 
     public int getIdUsuario() {
         return idUsuario;
@@ -52,5 +55,13 @@ public class Evaluacion implements Comparable<Evaluacion> {
 
     public void setPuntaje(double puntaje) {
         this.puntaje = puntaje;
+    }
+
+    public int getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(int fecha) {
+        this.fecha = fecha;
     }
 }
