@@ -15,7 +15,7 @@ public class UMovie {
     private Map<Integer,Pelicula> peliculas;
     private Map<Integer,Coleccion> colecciones; ///cuando haya que crear es mas eficiente para ver si existe
 
-    public UMovie(List<Pelicula> peliculas) {
+    public UMovie() {
         this.peliculas = new Hashtable<>(45500);
         this.colecciones = new HashMap<>();
     }

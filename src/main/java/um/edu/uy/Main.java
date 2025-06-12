@@ -1,9 +1,12 @@
 package um.edu.uy;
 
+import um.edu.uy.entities.UMovie;
+
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        UMovie umovie = new UMovie();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -19,6 +22,7 @@ public class Main {
             int seleccion1 = input.nextInt();
 
             if (seleccion1 == 1) {
+                umovie.cargarPeliculas("movies.csv"); /// Hacer lo mismo con el resto
                 // Cargar datos
             } else if (seleccion1 == 2) {
                 loop:
