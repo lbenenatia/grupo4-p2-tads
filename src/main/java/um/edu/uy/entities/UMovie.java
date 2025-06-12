@@ -1,5 +1,6 @@
 package um.edu.uy.entities;
 
+
 import com.google.gson.Gson;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
@@ -12,12 +13,16 @@ import java.io.IOException;
 import java.util.*;
 
 public class UMovie {
-    private Map<Integer,Pelicula> peliculas;
-    private Map<Integer,Coleccion> colecciones; ///cuando haya que crear es mas eficiente para ver si existe
+    private Map<Integer, Pelicula> peliculas;
+    private Map<Integer, Coleccion> colecciones;
+    private Map<Integer, Director> directores;
+
+    /// cuando haya que crear es mas eficiente para ver si existe
 
     public UMovie() {
         this.peliculas = new Hashtable<>(45500);
         this.colecciones = new HashMap<>();
+        this.directores = new Hashtable<>();
     }
 
     public void cargarPeliculas(String nombreArchivo) {
@@ -55,12 +60,12 @@ public class UMovie {
                 } catch (CsvValidationException | IOException e) {
                     System.err.println("Error al leer una línea del CSV.");
                 } catch (Exception e) {
-                    System.err.println("Error al procesar la línea (posiblemente formato incorrecto):");
+                    System.err.println("Error al procesar la linea (posiblemente formato incorrecto):");
+                    e.printStackTrace();
                 }
             }
-        }
-        catch (IOException e) {
-        throw new RuntimeException("Error al abrir o cerrar el archivo: " + nombreArchivo, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error al abrir o cerrar el archivo: " + nombreArchivo, e);
         }
     }
 
@@ -95,21 +100,20 @@ public class UMovie {
                     System.err.println("Error al procesar una evaluación: " + evaluacion);
                 }
             }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("Archivo no encontrado: " + nombreArchivo, e);
+        } catch (IOException e) {
+            throw new RuntimeException("Error de I/O al procesar el archivo: " + nombreArchivo, e);
+        } catch (RuntimeException e) {
+            ///Errores del CSVToBean
+            System.err.println("Error al parsear el archivo CSV: " + e.getMessage());
+            throw e;
         }
-    catch (FileNotFoundException e) {
-        throw new RuntimeException("Archivo no encontrado: " + nombreArchivo, e);
-    } catch (IOException e) {
-        throw new RuntimeException("Error de I/O al procesar el archivo: " + nombreArchivo, e);
-    } catch (RuntimeException e) {
-        ///Errores del CSVToBean
-        System.err.println("Error al parsear el archivo CSV: " + e.getMessage());
-        throw e;
-    }
     }
 
     /// Falta cargar actores y directores del csv credits
 
-    public ListaPeliculas filtrarPeliculas() {
+    public ListaPeliculas filtrarPeliculasPorIdioma() {
         //Usaría arrays de tamaño 5
         Pelicula[] ingles = new Pelicula[5];
         Pelicula[] frances = new Pelicula[5];
@@ -125,10 +129,10 @@ public class UMovie {
         for (Pelicula pelicula : peliculas.values()) { /// En nuestro caso probablemente tengamos que recorrer con un i
             String idioma = pelicula.getIdiomaOriginal();
             if (idioma.equals("en")) {
-                if (posVaciaEn  < 5) {
+                if (posVaciaEn < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    ingles[posVaciaEn ] = pelicula;
-                    posVaciaEn ++;
+                    ingles[posVaciaEn] = pelicula;
+                    posVaciaEn++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > ingles[0].cantidadEvaluaciones()) {
                         ingles[0] = pelicula;
@@ -137,10 +141,10 @@ public class UMovie {
                 }
             }
             if (idioma.equals("fr")) {
-                if (posVaciaFr  < 5) {
+                if (posVaciaFr < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    frances[posVaciaFr ] = pelicula;
-                    posVaciaFr ++;
+                    frances[posVaciaFr] = pelicula;
+                    posVaciaFr++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > frances[0].cantidadEvaluaciones()) {
                         frances[0] = pelicula;
@@ -151,8 +155,8 @@ public class UMovie {
             if (idioma.equals("es")) {
                 if (posVaciaEs < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    ingles[posVaciaEs ] = pelicula;
-                    posVaciaEs ++;
+                    ingles[posVaciaEs] = pelicula;
+                    posVaciaEs++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > espaniol[0].cantidadEvaluaciones()) {
                         espaniol[0] = pelicula;
@@ -161,10 +165,10 @@ public class UMovie {
                 }
             }
             if (idioma.equals("it")) {
-                if (posVaciaIt  < 5) {
+                if (posVaciaIt < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
-                    ingles[posVaciaIt ] = pelicula;
-                    posVaciaIt ++;
+                    ingles[posVaciaIt] = pelicula;
+                    posVaciaIt++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > italiano[0].cantidadEvaluaciones()) {
                         italiano[0] = pelicula;
@@ -176,7 +180,7 @@ public class UMovie {
                 if (posVaciaPt < 5) {
                     //...Los primeros 5 tienen que estar ordenados...
                     ingles[posVaciaPt] = pelicula;
-                    posVaciaPt ++;
+                    posVaciaPt++;
                 } else {
                     if (pelicula.cantidadEvaluaciones() > portugues[0].cantidadEvaluaciones()) {
                         portugues[0] = pelicula;
@@ -188,7 +192,109 @@ public class UMovie {
         return new ListaPeliculas(ingles, frances, espaniol, italiano, portugues);
     }
 
-    public String top5Evaluaciones() {
-        return filtrarPeliculas().toString();
+    public String top5PorIdioma() {
+        return filtrarPeliculasPorIdioma().toString();
+    }
+
+    public Pelicula[] filtrarPorCalificacionMedia() {
+        Pelicula[] top = new Pelicula[10];
+
+        int posVacia = 0;
+
+        for (Pelicula pelicula : peliculas.values()) {
+            pelicula.calcularMedia();
+
+            if (posVacia < 10) {
+                top[posVacia] = pelicula;
+                posVacia++;
+            } else {
+                if (pelicula.getCalificacionMedia() > top[0].getCalificacionMedia()) {
+                    top[0] = pelicula;
+                    // Reordenar
+                }
+            }
+        }
+        return top;
+    }
+
+    public void top10CalificacionMedia() {
+        Pelicula[] top10 = filtrarPorCalificacionMedia();
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(top10[i].getId() + top10[i].getTitulo() + top10[i].getCalificacionMedia());
+        }
+    }
+
+    public Ingresable[] filtrarPorIngresos() {
+        Ingresable[] top = new Ingresable[5];
+        int posVacia = 0;
+
+        for (Coleccion coleccion : colecciones.values()) {
+            if (posVacia < 5) {
+                top[posVacia] = coleccion;
+                posVacia++;
+            } else {
+                if (coleccion.getIngresos() > top[0].getIngresos()) {
+                    top[0] = coleccion;
+                    // Reordenar
+                }
+            }
+        }
+
+        for (Pelicula pelicula : peliculas.values()) {
+            if (!pelicula.isPerteneceAColeccion()) {
+                if (pelicula.getIngresos() > top[0].getIngresos()) {
+                    top[0] = pelicula;
+                    // Reordenar
+                }
+            }
+        }
+        return top;
+    }
+
+    public void top5Ingresos() {
+        Ingresable[] top5 = filtrarPorIngresos();
+
+        for (int i = 0; i < 5; i++) {
+            if (top5[i] instanceof Pelicula) {
+                Pelicula pelicula = (Pelicula) top5[i];
+                System.out.println(pelicula.getId() + pelicula.getTitulo() + pelicula.getIngresos());
+            } else {
+                Coleccion coleccion = (Coleccion) top5[i];
+                System.out.println(coleccion.getId() + coleccion.getTitulo() + coleccion.cantidadPeliculas() +
+                        coleccion.idPeliculas() + coleccion.getIngresos());
+            }
+        }
+    }
+
+    public Director[] filtrarDirectores() {
+        Director[] top = new Director[10];
+        int posVacia = 0;
+
+        for (Director director : directores.values()) {
+            if (director.cantidadPeliculas() > 1 && director.cantidadEvaluaciones() > 100) {
+                director.calcularMediana();
+
+                if (posVacia < 10) {
+                    top[posVacia] = director;
+                    posVacia++;
+                    // Reordenar
+                } else {
+                    if (director.getMediana() > top[0].getMediana()) {
+                        top[0] = director;
+                        // Reordenar
+                    }
+                }
+            }
+        }
+        return top;
+    }
+
+    public void top10Directores() {
+        Director[] top10 = filtrarDirectores();
+
+        for (int i = 0; i < 10; i++) {
+            System.out.println(top10[i].getNombre() + top10[i].cantidadPeliculas() + top10[i].getMediana());
+        }
     }
 }

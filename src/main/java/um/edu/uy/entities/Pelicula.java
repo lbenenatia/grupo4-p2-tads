@@ -1,26 +1,25 @@
 package um.edu.uy.entities;
 
-import com.opencsv.bean.CsvBindByPosition;
-
+import java.util.ArrayList;
 import java.util.List;
 
-public class Pelicula implements Comparable<Pelicula> , Ingresable {
+public class Pelicula implements Comparable<Pelicula>, Ingresable {
     private int id;
     private String titulo;
     private String idiomaOriginal;
     private double ingresos;
-    private List<Genero> generos; /// Ver si es realmente necesario tener los generos en la pelicula
-    private boolean perteneceAColeccion = false; ///Actualizarla cuando tiene
+    private List<Genero> generos;
+    private boolean perteneceAColeccion = false;
+    /// Actualizarla cuando tiene
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
-    /// Agregar fecha
 
     public Pelicula() {
         this.id = id;
         this.titulo = titulo;
         this.idiomaOriginal = idiomaOriginal;
         this.ingresos = ingresos;
-        this.generos = generos;
+        this.generos = new ArrayList<>();
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
         this.evaluaciones = evaluaciones;
@@ -55,6 +54,7 @@ public class Pelicula implements Comparable<Pelicula> , Ingresable {
     public void setId(int id) {
         this.id = id;
     }
+
     @Override
     public String getTitulo() {
         return titulo;
@@ -71,6 +71,7 @@ public class Pelicula implements Comparable<Pelicula> , Ingresable {
     public void setIdiomaOriginal(String idiomaOriginal) {
         this.idiomaOriginal = idiomaOriginal;
     }
+
     @Override
     public double getIngresos() {
         return ingresos;
