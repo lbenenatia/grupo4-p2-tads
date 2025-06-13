@@ -26,7 +26,11 @@ public class Main {
             int seleccion1 = input.nextInt();
 
             if (seleccion1 == 1) {
+                long startTime = System.currentTimeMillis();
                 uMovie.cargarPeliculas("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
+                long endTime = System.currentTimeMillis();
+                long duration = endTime - startTime;
+                System.out.println("Duración de cargarPeliculas: " + duration + " milisegundos");
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {

@@ -2,6 +2,9 @@ package um.edu.uy.entities;
 
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -10,6 +13,9 @@ import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static um.edu.uy.tads.Sorting.agregarOrdenado;
@@ -27,6 +33,60 @@ public class UMovie {
         this.colecciones = new HashMap<>();
         this.directores = new Hashtable<>();
     }
+    /*
+
+    public void cargarPeliculas2(String nombreArchivo) {
+        try {
+            List<String> lineas = Files.readAllLines(Paths.get(nombreArchivo));
+            Gson gson = new Gson();
+
+            for (int i = 1; i < lineas.size(); i++) {
+                try {
+                    String linea = lineas.get(i);
+                    String[] campos = parseCSVLine(linea);
+
+                    Pelicula pelicula = mapLineaToPelicula(campos);
+
+                    String coleccionJsonRaw = campos[1];
+                    if (!coleccionJsonRaw.trim().isEmpty()) {
+                        pelicula.setPerteneceAColeccion(true);
+
+                        // Convertir comillas simples a dobles para que Gson lo acepte
+                        String jsonString = coleccionJsonRaw.replace('\'', '"');
+                        JsonReader reader = new JsonReader(new StringReader(jsonString));
+                        reader.setLenient(true);
+                        JsonObject coleccionObj = JsonParser.parseString(jsonString).getAsJsonObject();
+                        int id = coleccionObj.get("id").getAsInt();
+                        String nombre = coleccionObj.get("name").getAsString();
+
+                        Coleccion coleccionExistente = colecciones.get(id);
+                        if (coleccionExistente == null) {
+                            coleccionExistente = new Coleccion();
+                            coleccionExistente.setId(id);
+                            coleccionExistente.setTitulo(nombre);
+                            colecciones.put(id, coleccionExistente);
+                        }
+
+                        coleccionExistente.agregarPelicula(pelicula);
+                    }
+
+                    peliculas.put(pelicula.getId(), pelicula);
+
+                } catch (Exception e) {
+                    System.err.println("Error al procesar la línea " + (i + 1));
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al leer el archivo: " + nombreArchivo, e);
+        }
+    }
+
+    private String[] parseCSVLine(String linea) {
+        return linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+    }
+
+     */
 
     public void cargarPeliculas(String nombreArchivo) {
         try (CSVReader reader = new CSVReader(new FileReader(nombreArchivo))) {
@@ -35,14 +95,20 @@ public class UMovie {
             } catch (CsvValidationException | IOException e) {
                 throw new RuntimeException("Error al leer el encabezado del archivo CSV", e);
             }
-            String[] linea;
+            String[] linea = null;
+            int numeroLinea = 1;
             while (true) {
                 try {
                     linea = reader.readNext();
                     if (linea == null) {
                         break;
                     }
+                    numeroLinea++;
                     Pelicula pelicula = mapLineaToPelicula(linea);
+                    if (pelicula == null) {
+                        System.err.println("Ignorando línea " + numeroLinea + " debido a error en parseo.");
+                        continue; // Saltear esta línea y seguir con la siguiente
+                    }
 
                     String coleccionJson = linea[1];
 
@@ -58,12 +124,12 @@ public class UMovie {
                         coleccionExistente.agregarPelicula(pelicula);
                     }
 
-                    /// No seria necesario agregar
+                    /// Ver de agregar los generos y posiblemente los directores
                     peliculas.put(pelicula.getId(), pelicula);
                 } catch (CsvValidationException | IOException e) {
                     System.err.println("Error al leer una línea del CSV.");
                 } catch (Exception e) {
-                    System.err.println("Error al procesar la linea (posiblemente formato incorrecto):");
+                    System.err.println("Error en línea " + numeroLinea + ": " + Arrays.toString(linea));
                     e.printStackTrace();
                 }
             }
@@ -71,14 +137,22 @@ public class UMovie {
             throw new RuntimeException("Error al abrir o cerrar el archivo: " + nombreArchivo, e);
         }
     }
-
     public Pelicula mapLineaToPelicula(String[] linea) {
-        Pelicula p = new Pelicula();
-        p.setId(Integer.parseInt(linea[5]));
-        p.setTitulo(linea[18]);
-        p.setIdiomaOriginal(linea[7]);
-        p.setIngresos(Double.parseDouble(linea[13]));
-        return p;
+        try {
+            Pelicula p = new Pelicula();
+            p.setId(Integer.parseInt(linea[5]));
+            p.setTitulo(linea[18]);
+            p.setIdiomaOriginal(linea[7]);
+            if (!linea[13].isBlank()) {
+                p.setIngresos(Double.parseDouble(linea[13]));
+            } else {
+                p.setIngresos(0.0);
+            }
+            return p;
+        } catch (Exception e) {
+            System.err.println("Error parseando línea: " + Arrays.toString(linea));
+            return null; // Indica que esta línea no es válida
+        }
     }
 
     public void cargarEvaluaciones(String nombreArchivo) {
