@@ -2,7 +2,6 @@ package um.edu.uy;
 
 import um.edu.uy.entities.UMovie;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -63,7 +62,12 @@ public class Main {
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration + " milisegundos");
                             break;
 
-                        case 2: // funcion 2
+                        case 2:
+                            long startTime2 = System.currentTimeMillis();
+                            uMovie.top10CalificacionMedia();
+                            long endTime2 = System.currentTimeMillis();
+                            long duration2 = endTime2 - startTime2;
+                            System.out.println("Tiempo de ejecucion de la consulta: " + duration2 + " milisegundos");
                             break;
 
                         case 3: // funcion 3

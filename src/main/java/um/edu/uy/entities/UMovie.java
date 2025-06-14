@@ -278,12 +278,12 @@ public class UMovie {
             pelicula.calcularMedia();
 
             if (posVacia < 10) {
-                top[posVacia] = pelicula;
+                agregarOrdenado(pelicula, top, posVacia);
                 posVacia++;
             } else {
-                if (pelicula.getCalificacionMedia() > top[0].getCalificacionMedia()) {
-                    top[0] = pelicula;
-                    // Reordenar
+                if (pelicula.getCalificacionMedia() > top[9].getCalificacionMedia()) {
+                    top[9] = pelicula;
+                    ordenarUltimo(top, 9);
                 }
             }
         }
@@ -293,8 +293,8 @@ public class UMovie {
     public void top10CalificacionMedia() {
         Pelicula[] top10 = filtrarPorCalificacionMedia();
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(top10[i].getId() + top10[i].getTitulo() + top10[i].getCalificacionMedia());
+        for (int i = 9; i > 0; i--) {
+            System.out.println(top10[i].getId() + ", " + top10[i].getTitulo() + ", " + top10[i].getCalificacionMedia());
         }
     }
 
