@@ -3,13 +3,13 @@ package um.edu.uy.entities;
 import java.util.List;
 
 public class ListaPeliculas {
-    private Pelicula[] ingles;
-    private Pelicula[] frances;
-    private Pelicula[] espaniol;
-    private Pelicula[] italiano;
-    private Pelicula[] portugues;
+    private PeliculaPorEvaluaciones[] ingles;
+    private PeliculaPorEvaluaciones[] frances;
+    private PeliculaPorEvaluaciones[] espaniol;
+    private PeliculaPorEvaluaciones[] italiano;
+    private PeliculaPorEvaluaciones[] portugues;
 
-    public ListaPeliculas(Pelicula[] ingles, Pelicula[] frances, Pelicula[] espaniol, Pelicula[] italiano, Pelicula[] portugues) {
+    public ListaPeliculas(PeliculaPorEvaluaciones[] ingles, PeliculaPorEvaluaciones[] frances, PeliculaPorEvaluaciones[] espaniol, PeliculaPorEvaluaciones[] italiano, PeliculaPorEvaluaciones[] portugues) {
             this.ingles = ingles;
             this.frances = frances;
             this.espaniol = espaniol;
@@ -20,27 +20,27 @@ public class ListaPeliculas {
     @Override
     public String toString() {
         StringBuilder display = new StringBuilder();
-        for (Pelicula pelicula : ingles){
+        for (PeliculaPorEvaluaciones pelicula : ingles){
             if (pelicula != null) {
                 display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
             }
         }
-        for (Pelicula pelicula : frances) {
+        for (PeliculaPorEvaluaciones pelicula : frances) {
             if (pelicula != null) {
                 display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
             }
         }
-        for (Pelicula pelicula : espaniol) {
+        for (PeliculaPorEvaluaciones pelicula : espaniol) {
             if (pelicula != null) {
                 display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
             }
         }
-        for (Pelicula pelicula : italiano) {
+        for (PeliculaPorEvaluaciones pelicula : italiano) {
             if (pelicula != null) {
                 display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
             }
         }
-        for (Pelicula pelicula : portugues) {
+        for (PeliculaPorEvaluaciones pelicula : portugues) {
             if (pelicula != null) {
                 display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
             }
@@ -49,43 +49,43 @@ public class ListaPeliculas {
         return display.toString();
     }
 
-    public Pelicula[] getIngles() {
+    public PeliculaPorEvaluaciones[] getIngles() {
         return ingles;
     }
 
-    public void setIngles(Pelicula[] ingles) {
+    public void setIngles(PeliculaPorEvaluaciones[] ingles) {
         this.ingles = ingles;
     }
 
-    public Pelicula[] getFrances() {
+    public PeliculaPorEvaluaciones[] getFrances() {
         return frances;
     }
 
-    public void setFrances(Pelicula[] frances) {
+    public void setFrances(PeliculaPorEvaluaciones[] frances) {
         this.frances = frances;
     }
 
-    public Pelicula[] getEspaniol() {
+    public PeliculaPorEvaluaciones[] getEspaniol() {
         return espaniol;
     }
 
-    public void setEspaniol(Pelicula[] espaniol) {
+    public void setEspaniol(PeliculaPorEvaluaciones[] espaniol) {
         this.espaniol = espaniol;
     }
 
-    public Pelicula[] getItaliano() {
+    public PeliculaPorEvaluaciones[] getItaliano() {
         return italiano;
     }
 
-    public void setItaliano(Pelicula[] italiano) {
+    public void setItaliano(PeliculaPorEvaluaciones[] italiano) {
         this.italiano = italiano;
     }
 
-    public Pelicula[] getPortugues() {
+    public PeliculaPorEvaluaciones[] getPortugues() {
         return portugues;
     }
 
-    public void setPortugues(Pelicula[] portugues) {
+    public void setPortugues(PeliculaPorEvaluaciones[] portugues) {
         this.portugues = portugues;
     }
 }

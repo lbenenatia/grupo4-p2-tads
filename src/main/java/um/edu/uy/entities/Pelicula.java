@@ -3,7 +3,7 @@ package um.edu.uy.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pelicula implements Comparable<Pelicula>, Ingresable {
+public class Pelicula implements Ingresable {
     private int id;
     private String titulo;
     private String idiomaOriginal;
@@ -44,11 +44,6 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
 
     public int cantidadEvaluaciones() {
         return this.getEvaluaciones().size();
-    }
-
-    @Override
-    public int compareTo(Pelicula otraPelicula) {
-        return Double.compare(this.cantidadEvaluaciones(), otraPelicula.cantidadEvaluaciones());
     }
 
     public int getId() {

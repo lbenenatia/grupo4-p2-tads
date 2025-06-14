@@ -191,11 +191,11 @@ public class UMovie {
     /// Falta cargar actores y directores del csv credits
 
     public ListaPeliculas filtrarPeliculasPorIdioma() {
-        Pelicula[] ingles = new Pelicula[5];
-        Pelicula[] frances = new Pelicula[5];
-        Pelicula[] espaniol = new Pelicula[5];
-        Pelicula[] italiano = new Pelicula[5];
-        Pelicula[] portugues = new Pelicula[5];
+        PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
+        PeliculaPorEvaluaciones[] frances = new PeliculaPorEvaluaciones[5];
+        PeliculaPorEvaluaciones[] espaniol = new PeliculaPorEvaluaciones[5];
+        PeliculaPorEvaluaciones[] italiano = new PeliculaPorEvaluaciones[5];
+        PeliculaPorEvaluaciones[] portugues = new PeliculaPorEvaluaciones[5];
         int posVaciaEn = 0;
         int posVaciaFr = 0;
         int posVaciaEs = 0;
@@ -206,56 +206,61 @@ public class UMovie {
             if (pelicula.cantidadEvaluaciones() == 0) continue;
             String idioma = pelicula.getIdiomaOriginal();
             if (idioma.equals("en")) {
+                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEn < 5) {
-                    agregarOrdenado(pelicula, ingles, posVaciaEn);
+                    agregarOrdenado(nueva, ingles, posVaciaEn);
                     posVaciaEn++;
                 } else {
-                    if (pelicula.cantidadEvaluaciones() > ingles[4].cantidadEvaluaciones()) {
-                        ingles[4] = pelicula;
+                    if (nueva.cantidadEvaluaciones() > ingles[4].cantidadEvaluaciones()) {
+                        ingles[4] = nueva;
                         ordenarUltimo(ingles, 4);
                     }
                 }
             }
             else if (idioma.equals("fr")) {
+                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
                 if (posVaciaFr < 5) {
-                    agregarOrdenado(pelicula, frances, posVaciaFr);
+                    agregarOrdenado(nueva, frances, posVaciaFr);
                     posVaciaFr++;
                 } else {
-                    if (pelicula.cantidadEvaluaciones() > frances[4].cantidadEvaluaciones()) {
-                        frances[4] = pelicula;
+                    if (nueva.cantidadEvaluaciones() > frances[4].cantidadEvaluaciones()) {
+                        frances[4] = nueva;
                         ordenarUltimo(frances, 4);
                     }
                 }
             }
             else if (idioma.equals("es")) {
+                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEs < 5) {
-                    agregarOrdenado(pelicula, espaniol, posVaciaEs);
+                    agregarOrdenado(nueva, espaniol, posVaciaEs);
                     posVaciaEs++;
                 } else {
-                    if (pelicula.cantidadEvaluaciones() > espaniol[4].cantidadEvaluaciones()) {
-                        espaniol[4] = pelicula;
+                    if (nueva.cantidadEvaluaciones() > espaniol[4].cantidadEvaluaciones()) {
+                        espaniol[4] = nueva;
                         ordenarUltimo(espaniol, 4);
                     }
                 }
             }
             else if (idioma.equals("it")) {
+                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
                 if (posVaciaIt < 5) {
-                    agregarOrdenado(pelicula, italiano, posVaciaIt);
+                    agregarOrdenado(nueva, italiano, posVaciaIt);
                     posVaciaIt++;
                 } else {
-                    if (pelicula.cantidadEvaluaciones() > italiano[4].cantidadEvaluaciones()) {
-                        italiano[4] = pelicula;
+                    if (nueva.cantidadEvaluaciones() > italiano[4].cantidadEvaluaciones()) {
+                        italiano[4] = nueva;
                         ordenarUltimo(italiano, 4);
                     }
                 }
             }
             else if (idioma.equals("pt")) {
+                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
                 if (posVaciaPt < 5) {
-                    agregarOrdenado(pelicula, portugues, posVaciaPt);
+                    agregarOrdenado(nueva, portugues, posVaciaPt);
                     posVaciaPt++;
                 } else {
-                    if (pelicula.cantidadEvaluaciones() > portugues[4].cantidadEvaluaciones()) {
-                        portugues[4] = pelicula;
+                    if (nueva.cantidadEvaluaciones() > portugues[4].cantidadEvaluaciones()) {
+                        portugues[4] = nueva;
                         ordenarUltimo(portugues, 4);
                     }
                 }
@@ -264,25 +269,43 @@ public class UMovie {
         return new ListaPeliculas(ingles, frances, espaniol, italiano, portugues);
     }
 
+    public PeliculaPorEvaluaciones convertirAPeliculaPorEvaluaciones(Pelicula p) {
+        PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones();
+        nueva.setId(p.getId());
+        nueva.setTitulo(p.getTitulo());
+        nueva.setIdiomaOriginal(p.getIdiomaOriginal());
+        nueva.setEvaluaciones(p.getEvaluaciones());
+        return nueva;
+    }
+
     public String top5PorIdioma() {
         ListaPeliculas top5 = filtrarPeliculasPorIdioma();
         return top5.toString();
     }
 
-    public Pelicula[] filtrarPorCalificacionMedia() {
-        Pelicula[] top = new Pelicula[10];
+    public PeliculaPorCalificacionMedia convertirAPeliculaPorCalificacionMedia(Pelicula p) {
+        PeliculaPorCalificacionMedia nueva = new PeliculaPorCalificacionMedia();
+        nueva.setId(p.getId());
+        nueva.setTitulo(p.getTitulo());
+        nueva.setCalificacionMedia(p.getCalificacionMedia());
+        nueva.setEvaluaciones(p.getEvaluaciones());
+        return nueva;
+    }
+
+    public PeliculaPorCalificacionMedia[] filtrarPorCalificacionMedia() {
+        PeliculaPorCalificacionMedia[] top = new PeliculaPorCalificacionMedia[10];
 
         int posVacia = 0;
 
         for (Pelicula pelicula : peliculas.values()) {
             pelicula.calcularMedia();
-
+            PeliculaPorCalificacionMedia nueva = convertirAPeliculaPorCalificacionMedia(pelicula);
             if (posVacia < 10) {
-                agregarOrdenado(pelicula, top, posVacia);
+                agregarOrdenado(nueva, top, posVacia);
                 posVacia++;
             } else {
-                if (pelicula.getCalificacionMedia() > top[9].getCalificacionMedia()) {
-                    top[9] = pelicula;
+                if (nueva.getCalificacionMedia() > top[9].getCalificacionMedia()) {
+                    top[9] = nueva;
                     ordenarUltimo(top, 9);
                 }
             }
@@ -291,7 +314,7 @@ public class UMovie {
     }
 
     public void top10CalificacionMedia() {
-        Pelicula[] top10 = filtrarPorCalificacionMedia();
+        PeliculaPorCalificacionMedia[] top10 = filtrarPorCalificacionMedia();
 
         for (int i = 9; i > 0; i--) {
             System.out.println(top10[i].getId() + ", " + top10[i].getTitulo() + ", " + top10[i].getCalificacionMedia());
