@@ -9,13 +9,12 @@ public class Sorting{
         array[j] = temporal;
     }
 
-    public static <K extends Comparable<K>> K[] ordenarPrimero(K[] array) {
+    public static <K extends Comparable<K>> K[] ordenarUltimo(K[] array, int posicion) {
         boolean termine = false;
-        int posicion = 0;
-        while (!termine && posicion < array.length-1) {
-            if (array[posicion].compareTo(array[posicion+1]) > 0) {
-                swap(array, posicion, posicion+1);
-                posicion++;
+        while (!termine && posicion > 0) {
+            if (array[posicion].compareTo(array[posicion-1]) > 0) {
+                swap(array, posicion, posicion-1);
+                posicion--;
             }
             else{
                 termine = true;

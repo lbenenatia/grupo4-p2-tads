@@ -10,30 +10,40 @@ public class ListaPeliculas {
     private Pelicula[] portugues;
 
     public ListaPeliculas(Pelicula[] ingles, Pelicula[] frances, Pelicula[] espaniol, Pelicula[] italiano, Pelicula[] portugues) {
-            this.ingles = new Pelicula[5];
-            this.frances = new Pelicula[5];
-            this.espaniol = new Pelicula[5];
-            this.italiano = new Pelicula[5];
-            this.portugues = new Pelicula[5];
+            this.ingles = ingles;
+            this.frances = frances;
+            this.espaniol = espaniol;
+            this.italiano = italiano;
+            this.portugues = portugues;
         }
 
     @Override
     public String toString() {
         StringBuilder display = new StringBuilder();
         for (Pelicula pelicula : ingles){
-            display.append(pelicula.getId()).append(pelicula.getTitulo()).append(pelicula.getEvaluaciones().size()).append(pelicula.getIdiomaOriginal()).append("\n");
+            if (pelicula != null) {
+                display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
+            }
         }
-        for (Pelicula pelicula : frances){
-            display.append(pelicula.getId()).append(pelicula.getTitulo()).append(pelicula.getEvaluaciones().size()).append(pelicula.getIdiomaOriginal()).append("\n");
+        for (Pelicula pelicula : frances) {
+            if (pelicula != null) {
+                display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
+            }
         }
-        for (Pelicula pelicula : espaniol){
-            display.append(pelicula.getId()).append(pelicula.getTitulo()).append(pelicula.getEvaluaciones().size()).append(pelicula.getIdiomaOriginal()).append("\n");
+        for (Pelicula pelicula : espaniol) {
+            if (pelicula != null) {
+                display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
+            }
         }
-        for (Pelicula pelicula : italiano){
-            display.append(pelicula.getId()).append(pelicula.getTitulo()).append(pelicula.getEvaluaciones().size()).append(pelicula.getIdiomaOriginal()).append("\n");
+        for (Pelicula pelicula : italiano) {
+            if (pelicula != null) {
+                display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
+            }
         }
-        for (Pelicula pelicula : portugues){
-            display.append(pelicula.getId()).append(pelicula.getTitulo()).append(pelicula.getEvaluaciones().size()).append(pelicula.getIdiomaOriginal()).append("\n");
+        for (Pelicula pelicula : portugues) {
+            if (pelicula != null) {
+                display.append(pelicula.getId()).append(", ").append(pelicula.getTitulo()).append(", ").append(pelicula.cantidadEvaluaciones()).append(", ").append(pelicula.getIdiomaOriginal()).append("\n");
+            }
         }
 
         return display.toString();

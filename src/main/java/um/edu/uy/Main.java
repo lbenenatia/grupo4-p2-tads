@@ -2,6 +2,7 @@ package um.edu.uy;
 
 import um.edu.uy.entities.UMovie;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +18,7 @@ public class Main {
                     "3. Salir");
 
             System.out.println("Ingrese una opcion: ");
-            while (!input.hasNextInt()) {
+              while (!input.hasNextInt()) {
                 System.out.println("Opcion invalida\n" +
                         "Ingrese otra opcion: ");
                 input.next();
@@ -28,6 +29,7 @@ public class Main {
             if (seleccion1 == 1) {
                 long startTime = System.currentTimeMillis();
                 uMovie.cargarPeliculas("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
+                uMovie.cargarEvaluaciones("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
                 long endTime = System.currentTimeMillis();
                 long duration = endTime - startTime;
                 System.out.println("Duración de cargarPeliculas: " + duration + " milisegundos");
@@ -53,7 +55,12 @@ public class Main {
                     int seleccion2 = input.nextInt();
 
                     switch (seleccion2) {
-                        case 1: // funcion 1
+                        case 1:
+                            long startTime = System.currentTimeMillis();
+                            System.out.println(uMovie.top5PorIdioma());
+                            long endTime = System.currentTimeMillis();
+                            long duration = endTime - startTime;
+                            System.out.println("Tiempo de ejecucion de la consulta: " + duration + " milisegundos");
                             break;
 
                         case 2: // funcion 2

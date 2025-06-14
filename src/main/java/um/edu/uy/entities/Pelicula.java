@@ -27,6 +27,9 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
     }
 
     public void calcularMedia() {
+        if(this.evaluaciones.isEmpty()) {
+            return;
+        }
         double puntajeTotal = 0;
         for (Evaluacion e : this.evaluaciones) {
             puntajeTotal += e.getPuntaje();
@@ -45,7 +48,7 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
 
     @Override
     public int compareTo(Pelicula otraPelicula) {
-        return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
+        return Double.compare(this.cantidadEvaluaciones(), otraPelicula.cantidadEvaluaciones());
     }
 
     public int getId() {
