@@ -1,14 +1,13 @@
 package um.edu.uy.entities;
 
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import um.edu.uy.converter.GeneroJson;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -24,6 +23,7 @@ public class UMovie {
     private Map<Integer, Pelicula> peliculas;
     private Map<Integer, Coleccion> colecciones;
     private Map<Integer, Director> directores;
+    private Map<Integer, Genero> generos;
 
     /// cuando haya que crear es mas eficiente para ver si existe
 
@@ -31,61 +31,8 @@ public class UMovie {
         this.peliculas = new Hashtable<>(45500);
         this.colecciones = new HashMap<>();
         this.directores = new Hashtable<>();
+        this.generos = new Hashtable<>();
     }
-    /*
-
-    public void cargarPeliculas2(String nombreArchivo) {
-        try {
-            List<String> lineas = Files.readAllLines(Paths.get(nombreArchivo));
-            Gson gson = new Gson();
-
-            for (int i = 1; i < lineas.size(); i++) {
-                try {
-                    String linea = lineas.get(i);
-                    String[] campos = parseCSVLine(linea);
-
-                    Pelicula pelicula = mapLineaToPelicula(campos);
-
-                    String coleccionJsonRaw = campos[1];
-                    if (!coleccionJsonRaw.trim().isEmpty()) {
-                        pelicula.setPerteneceAColeccion(true);
-
-                        // Convertir comillas simples a dobles para que Gson lo acepte
-                        String jsonString = coleccionJsonRaw.replace('\'', '"');
-                        JsonReader reader = new JsonReader(new StringReader(jsonString));
-                        reader.setLenient(true);
-                        JsonObject coleccionObj = JsonParser.parseString(jsonString).getAsJsonObject();
-                        int id = coleccionObj.get("id").getAsInt();
-                        String nombre = coleccionObj.get("name").getAsString();
-
-                        Coleccion coleccionExistente = colecciones.get(id);
-                        if (coleccionExistente == null) {
-                            coleccionExistente = new Coleccion();
-                            coleccionExistente.setId(id);
-                            coleccionExistente.setTitulo(nombre);
-                            colecciones.put(id, coleccionExistente);
-                        }
-
-                        coleccionExistente.agregarPelicula(pelicula);
-                    }
-
-                    peliculas.put(pelicula.getId(), pelicula);
-
-                } catch (Exception e) {
-                    System.err.println("Error al procesar la línea " + (i + 1));
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Error al leer el archivo: " + nombreArchivo, e);
-        }
-    }
-
-    private String[] parseCSVLine(String linea) {
-        return linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-    }
-
-     */
 
     public void cargarPeliculas(String nombreArchivo) {
         try (CSVReader reader = new CSVReader(new FileReader(nombreArchivo))) {
@@ -123,7 +70,25 @@ public class UMovie {
                         coleccionExistente.agregarPelicula(pelicula);
                     }
 
-                    /// Ver de agregar los generos y posiblemente los directores
+                    String generosJson = linea[3];
+
+                    if (!generosJson.trim().isEmpty()) {
+                        // Parsear JSON a lista de GeneroJson
+                        Gson gson = new Gson();
+                        JsonArray array = JsonParser.parseString(generosJson.replace('\'','"')).getAsJsonArray();
+                        for (JsonElement elem : array) {
+                            GeneroJson gJson = gson.fromJson(elem, GeneroJson.class);
+
+                            Genero generoExistente = generos.get(gJson.getId());
+                            if (generoExistente == null) {
+                                generoExistente = new Genero();
+                                generoExistente.setId(gJson.getId());
+                                generoExistente.setNombre(gJson.getName());
+                                generos.put(gJson.getId(), generoExistente);
+                            }
+                            pelicula.agregarGenero(generoExistente);
+                        }
+                    }
                     peliculas.put(pelicula.getId(), pelicula);
                 } catch (CsvValidationException | IOException e) {
                     System.err.println("Error al leer una línea del CSV.");

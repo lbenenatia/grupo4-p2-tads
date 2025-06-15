@@ -42,6 +42,10 @@ public class Pelicula implements Ingresable {
         this.evaluaciones.add(e);
     }
 
+    public void agregarGenero(Genero g) {
+        this.generos.add(g);
+    }
+
     public int cantidadEvaluaciones() {
         return this.getEvaluaciones().size();
     }
