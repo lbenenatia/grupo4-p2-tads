@@ -1,9 +1,10 @@
 package um.edu.uy.entities;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Pelicula implements Ingresable {
+public class Pelicula implements Ingresable{
     private int id;
     private String titulo;
     private String idiomaOriginal;
@@ -14,7 +15,7 @@ public class Pelicula implements Ingresable {
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
 
-    public Pelicula() {
+    public Pelicula() { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
         this.id = id;
         this.titulo = titulo;
         this.idiomaOriginal = idiomaOriginal;
@@ -23,7 +24,6 @@ public class Pelicula implements Ingresable {
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
         this.evaluaciones = new ArrayList<>();
-        this.evaluaciones = evaluaciones;
     }
 
     public void calcularMedia() {
@@ -41,6 +41,13 @@ public class Pelicula implements Ingresable {
     public void agregarEvaluacion(Evaluacion e) {
         this.evaluaciones.add(e);
     }
+    /*      Va a ser necesario para poder comparar peliculas con colecciones
+    @Override
+    public int compareTo(Ingresable otroIngresable) {
+        return Double.compare(otroIngresable.getIngresos(), this.ingresos);
+    }
+
+     */
 
     public void agregarGenero(Genero g) {
         this.generos.add(g);

@@ -70,7 +70,12 @@ public class Main {
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration2 + " milisegundos");
                             break;
 
-                        case 3: // funcion 3
+                        case 3:
+                            long startTime3 = System.currentTimeMillis();
+                            //uMovie.top5Ingresos();
+                            long endTime3 = System.currentTimeMillis();
+                            long duration3 = endTime3 - startTime3;
+                            System.out.println("Tiempo de ejecucion de la consulta: " + duration3 + " milisegundos");
                             break;
 
                         case 4: // funcion 4

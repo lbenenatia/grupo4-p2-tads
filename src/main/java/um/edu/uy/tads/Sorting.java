@@ -1,5 +1,7 @@
 package um.edu.uy.tads;
 
+import um.edu.uy.entities.Ingresable;
+
 public class Sorting{
     public Sorting() {}
 
@@ -40,6 +42,12 @@ public class Sorting{
                 }
             }
         }
+    }
+
+    public static void swap(Ingresable[] array, int i, int j) {
+        Ingresable temporal = array[i];
+        array[i] = array[j];
+        array[j] = temporal;
     }
 
 }

@@ -1,3 +1,4 @@
+
 package um.edu.uy.entities;
 
 public class PeliculaPorCalificacionMedia extends Pelicula implements Comparable<PeliculaPorCalificacionMedia>{
@@ -6,3 +7,4 @@ public class PeliculaPorCalificacionMedia extends Pelicula implements Comparable
         return Double.compare(this.getCalificacionMedia(), otraPelicula.getCalificacionMedia());
     }
 }
+

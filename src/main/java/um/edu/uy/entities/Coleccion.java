@@ -40,6 +40,13 @@ public class Coleccion implements Ingresable {
         }
         return ids;
     }
+    /*
+    @Override
+    public int compareTo(Ingresable otroIngresable) {
+        return Double.compare(otroIngresable.getIngresos(), this.ingresos);
+    }
+
+     */
 
     public int getId() {
         return id;

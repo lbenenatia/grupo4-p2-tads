@@ -2,7 +2,6 @@ package um.edu.uy.entities;
 
 
 import com.google.gson.*;
-import com.google.gson.stream.JsonReader;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -12,9 +11,6 @@ import um.edu.uy.converter.GeneroJson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static um.edu.uy.tads.Sorting.*;
@@ -53,14 +49,14 @@ public class UMovie {
                     Pelicula pelicula = mapLineaToPelicula(linea);
                     if (pelicula == null) {
                         System.err.println("Ignorando línea " + numeroLinea + " debido a error en parseo.");
-                        continue; // Saltear esta línea y seguir con la siguiente
+                        continue;
                     }
 
                     String coleccionJson = linea[1];
+                    Gson gson = new Gson();
 
                     if (!coleccionJson.trim().isEmpty()) {
                         pelicula.setPerteneceAColeccion(true);
-                        Gson gson = new Gson();
                         Coleccion coleccion = gson.fromJson(coleccionJson, Coleccion.class);
                         Coleccion coleccionExistente = colecciones.get(coleccion.getId()); //seria usar el pertence de hash
                         if (coleccionExistente == null) { //sería si es true
@@ -73,8 +69,6 @@ public class UMovie {
                     String generosJson = linea[3];
 
                     if (!generosJson.trim().isEmpty()) {
-                        // Parsear JSON a lista de GeneroJson
-                        Gson gson = new Gson();
                         JsonArray array = JsonParser.parseString(generosJson.replace('\'','"')).getAsJsonArray();
                         for (JsonElement elem : array) {
                             GeneroJson gJson = gson.fromJson(elem, GeneroJson.class);
@@ -102,7 +96,14 @@ public class UMovie {
     }
     public Pelicula mapLineaToPelicula(String[] linea) {
         try {
-            Pelicula p = new Pelicula();
+            Pelicula p = new Pelicula(); ///Va a haber que pasarle parametros
+            /*
+            if (!linea[13].isBlank()) {
+                p.setIngresos(Double.parseDouble(linea[13]));
+            }
+
+             */
+
             p.setId(Integer.parseInt(linea[5]));
             p.setTitulo(linea[18]);
             p.setIdiomaOriginal(linea[7]);
@@ -155,6 +156,15 @@ public class UMovie {
 
     /// Falta cargar actores y directores del csv credits
 
+    public PeliculaPorEvaluaciones convertirAPeliculaPorEvaluaciones(Pelicula p) {
+        PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones();
+        nueva.setId(p.getId());
+        nueva.setTitulo(p.getTitulo());
+        nueva.setIdiomaOriginal(p.getIdiomaOriginal());
+        nueva.setEvaluaciones(p.getEvaluaciones());
+        return nueva;
+    }
+
     public ListaPeliculas filtrarPeliculasPorIdioma() {
         PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
         PeliculaPorEvaluaciones[] frances = new PeliculaPorEvaluaciones[5];
@@ -176,7 +186,7 @@ public class UMovie {
                     agregarOrdenado(nueva, ingles, posVaciaEn);
                     posVaciaEn++;
                 } else {
-                    if (nueva.cantidadEvaluaciones() > ingles[4].cantidadEvaluaciones()) {
+                    if (nueva.compareTo(ingles[4])>0) {
                         ingles[4] = nueva;
                         ordenarUltimo(ingles, 4);
                     }
@@ -188,7 +198,7 @@ public class UMovie {
                     agregarOrdenado(nueva, frances, posVaciaFr);
                     posVaciaFr++;
                 } else {
-                    if (nueva.cantidadEvaluaciones() > frances[4].cantidadEvaluaciones()) {
+                    if (nueva.compareTo(frances[4])>0) {
                         frances[4] = nueva;
                         ordenarUltimo(frances, 4);
                     }
@@ -200,7 +210,7 @@ public class UMovie {
                     agregarOrdenado(nueva, espaniol, posVaciaEs);
                     posVaciaEs++;
                 } else {
-                    if (nueva.cantidadEvaluaciones() > espaniol[4].cantidadEvaluaciones()) {
+                    if (nueva.compareTo(espaniol[4])>0) {
                         espaniol[4] = nueva;
                         ordenarUltimo(espaniol, 4);
                     }
@@ -212,7 +222,7 @@ public class UMovie {
                     agregarOrdenado(nueva, italiano, posVaciaIt);
                     posVaciaIt++;
                 } else {
-                    if (nueva.cantidadEvaluaciones() > italiano[4].cantidadEvaluaciones()) {
+                    if (nueva.compareTo(italiano[4])>0) {
                         italiano[4] = nueva;
                         ordenarUltimo(italiano, 4);
                     }
@@ -224,7 +234,7 @@ public class UMovie {
                     agregarOrdenado(nueva, portugues, posVaciaPt);
                     posVaciaPt++;
                 } else {
-                    if (nueva.cantidadEvaluaciones() > portugues[4].cantidadEvaluaciones()) {
+                    if (nueva.compareTo(portugues[4])>0) {
                         portugues[4] = nueva;
                         ordenarUltimo(portugues, 4);
                     }
@@ -234,20 +244,11 @@ public class UMovie {
         return new ListaPeliculas(ingles, frances, espaniol, italiano, portugues);
     }
 
-    public PeliculaPorEvaluaciones convertirAPeliculaPorEvaluaciones(Pelicula p) {
-        PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones();
-        nueva.setId(p.getId());
-        nueva.setTitulo(p.getTitulo());
-        nueva.setIdiomaOriginal(p.getIdiomaOriginal());
-        nueva.setEvaluaciones(p.getEvaluaciones());
-        return nueva;
-    }
-
     public String top5PorIdioma() {
         ListaPeliculas top5 = filtrarPeliculasPorIdioma();
         return top5.toString();
     }
-
+    /// Retocar el metodo
     public PeliculaPorCalificacionMedia convertirAPeliculaPorCalificacionMedia(Pelicula p) {
         PeliculaPorCalificacionMedia nueva = new PeliculaPorCalificacionMedia();
         nueva.setId(p.getId());
@@ -269,7 +270,7 @@ public class UMovie {
                 agregarOrdenado(nueva, top, posVacia);
                 posVacia++;
             } else {
-                if (nueva.getCalificacionMedia() > top[9].getCalificacionMedia()) {
+                if (nueva.compareTo(top[9])>0) {
                     top[9] = nueva;
                     ordenarUltimo(top, 9);
                 }
@@ -281,49 +282,55 @@ public class UMovie {
     public void top10CalificacionMedia() {
         PeliculaPorCalificacionMedia[] top10 = filtrarPorCalificacionMedia();
 
-        for (int i = 9; i > 0; i--) {
+        for (int i = 9; i >= 0; i--) {
             System.out.println(top10[i].getId() + ", " + top10[i].getTitulo() + ", " + top10[i].getCalificacionMedia());
         }
     }
-
+    /*  Ajuste a esta parte NECESARIO
     public Ingresable[] filtrarPorIngresos() {
         Ingresable[] top = new Ingresable[5];
         int posVacia = 0;
 
         for (Coleccion coleccion : colecciones.values()) {
             if (posVacia < 5) {
-                top[posVacia] = coleccion;
+                agregarOrdenado(coleccion, top, posVacia);
                 posVacia++;
             } else {
-                if (coleccion.getIngresos() > top[0].getIngresos()) {
-                    top[0] = coleccion;
-                    // Reordenar
+                if (coleccion.compareTo(top[4])>0) {
+                    top[4] = coleccion;
+                    ordenarUltimo(top, 4);
+                }
+            }
+        }
+        for (Pelicula pelicula : peliculas.values()) {
+            if (!pelicula.isPerteneceAColeccion()) {
+                if(posVacia < 5){
+                    agregarOrdenado(pelicula, top, posVacia);
+                    posVacia++;
+                }
+                if (pelicula.compareTo(top[4])>0) {
+                    ordenarUltimo(top, 4);
                 }
             }
         }
 
-        for (Pelicula pelicula : peliculas.values()) {
-            if (!pelicula.isPerteneceAColeccion()) {
-                if (pelicula.getIngresos() > top[0].getIngresos()) {
-                    top[0] = pelicula;
-                    // Reordenar
-                }
-            }
-        }
+
         return top;
+
+
     }
 
     public void top5Ingresos() {
         Ingresable[] top5 = filtrarPorIngresos();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 4; i >= 0; i--) {
             if (top5[i] instanceof Pelicula) {
                 Pelicula pelicula = (Pelicula) top5[i];
-                System.out.println(pelicula.getId() + pelicula.getTitulo() + pelicula.getIngresos());
+                System.out.println(pelicula.getId() + ", " + pelicula.getTitulo() + ", " + pelicula.getIngresos());
             } else {
                 Coleccion coleccion = (Coleccion) top5[i];
-                System.out.println(coleccion.getId() + coleccion.getTitulo() + coleccion.cantidadPeliculas() +
-                        coleccion.idPeliculas() + coleccion.getIngresos());
+                System.out.println(coleccion.getId() + ", " + coleccion.getTitulo() + ", " + coleccion.cantidadPeliculas() +
+                        ", " + coleccion.idPeliculas() + ", " + coleccion.getIngresos());
             }
         }
     }
@@ -409,5 +416,7 @@ public class UMovie {
         }
     }
 
+
+     */
 
 }
