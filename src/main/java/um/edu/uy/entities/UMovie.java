@@ -7,6 +7,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
 import um.edu.uy.converter.ActorJson;
+import um.edu.uy.converter.ColeccionJson;
 import um.edu.uy.converter.DirectorJson;
 import um.edu.uy.converter.GeneroJson;
 
@@ -28,7 +29,7 @@ public class UMovie {
 
     public UMovie() {
         this.peliculas = new Hashtable<>();
-        this.colecciones = new HashMap<>();
+        this.colecciones = new Hashtable<>();
         this.directores = new Hashtable<>();
         this.generos = new Hashtable<>();
     }
@@ -60,11 +61,11 @@ public class UMovie {
 
                     if (!coleccionJson.trim().isEmpty()) {
                         pelicula.setPerteneceAColeccion(true);
-                        Coleccion coleccion = gson.fromJson(coleccionJson, Coleccion.class);
+                        ColeccionJson coleccion = gson.fromJson(coleccionJson, ColeccionJson.class);
                         Coleccion coleccionExistente = colecciones.get(coleccion.getId()); //seria usar el pertence de hash
                         if (coleccionExistente == null) { //sería si es true
-                            colecciones.put(coleccion.getId(), coleccion);
-                            coleccionExistente = coleccion;
+                            coleccionExistente = new Coleccion(coleccion.getId(), coleccion.getName());
+                            colecciones.put(coleccionExistente.getId(), coleccionExistente);
                         }
                         coleccionExistente.agregarPelicula(pelicula);
                     }
@@ -78,9 +79,7 @@ public class UMovie {
 
                             Genero generoExistente = generos.get(gJson.getId());
                             if (generoExistente == null) {
-                                generoExistente = new Genero();
-                                generoExistente.setId(gJson.getId());
-                                generoExistente.setNombre(gJson.getName());
+                                generoExistente = new Genero(gJson.getId(), gJson.getName());
                                 generos.put(gJson.getId(), generoExistente);
                             }
                             pelicula.agregarGenero(generoExistente);
@@ -90,7 +89,7 @@ public class UMovie {
                 } catch (CsvValidationException | IOException e) {
                     System.err.println("Error al leer una línea del CSV.");
                 } catch (Exception e) {
-                    System.err.println("Error en línea " + numeroLinea + ": " + Arrays.toString(linea));
+                    ///System.err.println("Error en línea " + numeroLinea + ": " + Arrays.toString(linea));
                 }
             }
         } catch (IOException e) {
@@ -168,7 +167,7 @@ public class UMovie {
                     int idPelicula = Integer.parseInt(linea[2]);
                     Pelicula pelicula = peliculas.get(idPelicula); /// Se asume formato [{, ver como resolver [[
                     if (pelicula == null) {
-                        System.err.println("Ignorando línea " + numeroLinea + " debido a que la pelicula no existe.");
+                        ///System.err.println("Ignorando línea " + numeroLinea + " debido a que la pelicula no existe.");
                         continue;
                     }
 
@@ -314,13 +313,13 @@ public class UMovie {
     public void top10CalificacionMedia() {
         PeliculaPorCalificacionMedia[] top10 = filtrarPorCalificacionMedia();
 
-        for (int i = 9; i >= 0; i--) {
+        for (int i = 0; i < 9; i++) {
             System.out.println(top10[i].getId() + ", " + top10[i].getTitulo() + ", " + top10[i].getCalificacionMedia());
         }
     }
-    /*  Ajuste a esta parte NECESARIO
-    public Ingresable[] filtrarPorIngresos() {
-        Ingresable[] top = new Ingresable[5];
+
+    public Coleccion[] filtrarPorIngresos() {
+        Coleccion[] top = new Coleccion[5];
         int posVacia = 0;
 
         for (Coleccion coleccion : colecciones.values()) {
@@ -336,34 +335,27 @@ public class UMovie {
         }
         for (Pelicula pelicula : peliculas.values()) {
             if (!pelicula.isPerteneceAColeccion()) {
+                Coleccion coleccion = new Coleccion(pelicula.getId(), pelicula.getTitulo());
+                coleccion.agregarPelicula(pelicula);
                 if(posVacia < 5){
-                    agregarOrdenado(pelicula, top, posVacia);
+                    agregarOrdenado(coleccion, top, posVacia);
                     posVacia++;
                 }
-                if (pelicula.compareTo(top[4])>0) {
+                if (coleccion.compareTo(top[4])>0) {
                     ordenarUltimo(top, 4);
                 }
             }
         }
-
-
         return top;
-
-
     }
 
     public void top5Ingresos() {
-        Ingresable[] top5 = filtrarPorIngresos();
+        Coleccion[] top5 = filtrarPorIngresos();
 
-        for (int i = 4; i >= 0; i--) {
-            if (top5[i] instanceof Pelicula) {
-                Pelicula pelicula = (Pelicula) top5[i];
-                System.out.println(pelicula.getId() + ", " + pelicula.getTitulo() + ", " + pelicula.getIngresos());
-            } else {
-                Coleccion coleccion = (Coleccion) top5[i];
-                System.out.println(coleccion.getId() + ", " + coleccion.getTitulo() + ", " + coleccion.cantidadPeliculas() +
-                        ", " + coleccion.idPeliculas() + ", " + coleccion.getIngresos());
-            }
+        for (int i = 0; i < 4; i++) {
+            Coleccion coleccion = top5[i];
+            System.out.println(coleccion.getId() + ", " + coleccion.getTitulo() + ", " + coleccion.cantidadPeliculas() +
+                    ", " + coleccion.idPeliculas() + ", " + coleccion.getIngresos());
         }
     }
 
@@ -447,8 +439,5 @@ public class UMovie {
             System.out.println(meses[i] + top[i].getNombre() + top[i].getCantidadEvaluacionesPorMes().get(i) + top[i].cantidadPeliculasPorMes(i));
         }
     }
-
-
-     */
 
 }

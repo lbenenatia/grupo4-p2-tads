@@ -8,7 +8,7 @@ public class Genero implements Comparable<Genero> {
     private String nombre;
     private List<Evaluacion> evaluaciones;
 
-    public Genero() {
+    public Genero(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
         this.evaluaciones = new ArrayList<>();

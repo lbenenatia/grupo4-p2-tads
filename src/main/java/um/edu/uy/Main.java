@@ -73,7 +73,7 @@ public class Main {
 
                         case 3:
                             long startTime3 = System.currentTimeMillis();
-                            //uMovie.top5Ingresos();
+                            uMovie.top5Ingresos();
                             long endTime3 = System.currentTimeMillis();
                             long duration3 = endTime3 - startTime3;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration3 + " milisegundos");
