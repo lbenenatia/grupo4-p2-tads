@@ -24,9 +24,6 @@ public class UMovie {
     private Map<Integer, Director> directores;
     private Map<Integer, Genero> generos;
 
-
-    /// cuando haya que crear es mas eficiente para ver si existe
-
     public UMovie() {
         this.peliculas = new Hashtable<>();
         this.colecciones = new Hashtable<>();
@@ -366,15 +363,13 @@ public class UMovie {
         for (Director director : directores.values()) {
             if (director.cantidadPeliculas() > 1 && director.cantidadEvaluaciones() > 100) {
                 director.calcularMediana();
-
                 if (posVacia < 10) {
-                    top[posVacia] = director;
+                    agregarOrdenado(director, top, posVacia);
                     posVacia++;
-                    // Reordenar
                 } else {
-                    if (director.getMediana() > top[0].getMediana()) {
-                        top[0] = director;
-                        // Reordenar
+                    if (director.getMediana() > top[9].getMediana()) {
+                        top[9] = director;
+                        ordenarUltimo(top, 9);
                     }
                 }
             }
@@ -386,7 +381,7 @@ public class UMovie {
         Director[] top10 = filtrarDirectores();
 
         for (int i = 0; i < 10; i++) {
-            System.out.println(top10[i].getNombre() + top10[i].cantidadPeliculas() + top10[i].getMediana());
+            System.out.println(top10[i].getNombre() + ", " + top10[i].cantidadPeliculas() + ", " +  top10[i].getMediana());
         }
     }
 

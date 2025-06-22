@@ -3,7 +3,9 @@ package um.edu.uy.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Director {
+import static um.edu.uy.tads.Sorting.mergeSort;
+
+public class Director implements Comparable<Director> {
     private int id;
     private String nombre;
     private List<Pelicula> peliculas;
@@ -18,19 +20,29 @@ public class Director {
 
     /// Precisamos tener la lista ordenada
     public void calcularMediana() { /// Preguntar si hacer mediana gral o a las medias de cada pelicula
-        List<Double> listaPuntajes = new ArrayList<>();
+        int cantidadPuntajes = 0;
+        for (Pelicula p : peliculas) {
+            for (Evaluacion e : p.getEvaluaciones()) {
+                cantidadPuntajes++;
+            }
+        }
+        Double[] listaPuntajes = new Double[cantidadPuntajes];
+        int posVacia = 0;
 
         for (Pelicula p : this.peliculas) {
             for (Evaluacion e : p.getEvaluaciones()) {
-                listaPuntajes.add(e.getPuntaje());
+                listaPuntajes[posVacia] = e.getPuntaje();
+                posVacia++;
             }
         }
 
-        if (listaPuntajes.size() % 2 == 1) {
-            this.mediana = listaPuntajes.get((listaPuntajes.size() - 1) / 2 );
+        listaPuntajes = mergeSort(listaPuntajes);
+
+        if (cantidadPuntajes % 2 == 1) {
+            this.mediana = listaPuntajes[(cantidadPuntajes-1) / 2];
         }
         else {
-            this.mediana = (listaPuntajes.get(listaPuntajes.size() / 2) + listaPuntajes.get((listaPuntajes.size() - 1) / 2 )) / 2;
+            this.mediana = (listaPuntajes[cantidadPuntajes / 2] + listaPuntajes[(cantidadPuntajes / 2)-1])/2;
         }
     }
 
@@ -48,6 +60,11 @@ public class Director {
             cant += pelicula.cantidadEvaluaciones();
         }
         return cant;
+    }
+
+    @Override
+    public int compareTo(Director otroDirector) {
+        return Double.compare(this.mediana, otroDirector.mediana);
     }
 
     public String getNombre() {
