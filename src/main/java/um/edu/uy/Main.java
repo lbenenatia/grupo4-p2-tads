@@ -29,9 +29,10 @@ public class Main {
                 long startTime = System.currentTimeMillis();
                 uMovie.cargarPeliculas("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
                 uMovie.cargarEvaluaciones("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
+                uMovie.cargarActoresDirectores("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\credits.csv");
                 long endTime = System.currentTimeMillis();
                 long duration = endTime - startTime;
-                System.out.println("Duración de cargarPeliculas: " + duration + " milisegundos");
+                System.out.println("Carga de datos exitosa, tiempo de ejecución de la carga: " + duration + " milisegundos");
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {

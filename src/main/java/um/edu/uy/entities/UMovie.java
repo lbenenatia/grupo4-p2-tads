@@ -6,11 +6,14 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import um.edu.uy.converter.ActorJson;
+import um.edu.uy.converter.DirectorJson;
 import um.edu.uy.converter.GeneroJson;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import static um.edu.uy.tads.Sorting.*;
@@ -21,10 +24,11 @@ public class UMovie {
     private Map<Integer, Director> directores;
     private Map<Integer, Genero> generos;
 
+
     /// cuando haya que crear es mas eficiente para ver si existe
 
     public UMovie() {
-        this.peliculas = new Hashtable<>(45500);
+        this.peliculas = new Hashtable<>();
         this.colecciones = new HashMap<>();
         this.directores = new Hashtable<>();
         this.generos = new Hashtable<>();
@@ -48,7 +52,7 @@ public class UMovie {
                     numeroLinea++;
                     Pelicula pelicula = mapLineaToPelicula(linea);
                     if (pelicula == null) {
-                        System.err.println("Ignorando línea " + numeroLinea + " debido a error en parseo.");
+                        ///System.err.println("Ignorando línea " + numeroLinea + " debido a error en parseo.");
                         continue;
                     }
 
@@ -96,28 +100,18 @@ public class UMovie {
     }
     public Pelicula mapLineaToPelicula(String[] linea) {
         try {
-            Pelicula p = new Pelicula(); ///Va a haber que pasarle parametros
-            /*
+            Pelicula p = new Pelicula(Integer.parseInt(linea[5]), linea[18], linea[7], 0); ///Va a haber que pasarle parametros
+
             if (!linea[13].isBlank()) {
                 p.setIngresos(Double.parseDouble(linea[13]));
-            }
-
-             */
-
-            p.setId(Integer.parseInt(linea[5]));
-            p.setTitulo(linea[18]);
-            p.setIdiomaOriginal(linea[7]);
-            if (!linea[13].isBlank()) {
-                p.setIngresos(Double.parseDouble(linea[13]));
-            } else {
-                p.setIngresos(0.0);
             }
             return p;
         } catch (Exception e) {
-            System.err.println("Error parseando línea: " + Arrays.toString(linea));
+            ///System.err.println("Error parseando línea: " + Arrays.toString(linea));
             return null; // Indica que esta línea no es válida
         }
     }
+
 
     public void cargarEvaluaciones(String nombreArchivo) {
         int evaluacionesNoValidas = 0;
@@ -154,16 +148,64 @@ public class UMovie {
         ///System.out.println(evaluacionesNoValidas);
     }
 
-    /// Falta cargar actores y directores del csv credits
+    public void cargarActoresDirectores(String nombreArchivo) {
+        Map<Integer, Actor> actores; //Para no cargarlo en el programa principal
+        actores = new Hashtable<>();
+        try (CSVReader reader = new CSVReader(new FileReader(nombreArchivo))) {
+            try {
+                reader.readNext(); // Suponiendo que hay encabezado
+            } catch (CsvValidationException | IOException e) {
+                throw new RuntimeException("Error al leer el encabezado del archivo CSV", e);
+            }
+            String[] linea = null;
+            int numeroLinea = 1;
+            while (true) {
+                try {
+                    linea = reader.readNext();
+                    if (linea == null) {
+                        break;
+                    }
+                    numeroLinea++;
+                    int idPelicula = Integer.parseInt(linea[2]);
+                    Pelicula pelicula = peliculas.get(idPelicula); /// Se asume formato [{, ver como resolver [[
+                    if (pelicula == null) {
+                        System.err.println("Ignorando línea " + numeroLinea + " debido a que la pelicula no existe.");
+                        continue;
+                    }
 
-    public PeliculaPorEvaluaciones convertirAPeliculaPorEvaluaciones(Pelicula p) {
-        PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones();
-        nueva.setId(p.getId());
-        nueva.setTitulo(p.getTitulo());
-        nueva.setIdiomaOriginal(p.getIdiomaOriginal());
-        nueva.setEvaluaciones(p.getEvaluaciones());
-        return nueva;
+                    Gson gson = new Gson();
+                    DirectorJson parseador = new DirectorJson(directores);
+                    Director director = parseador.convert(linea[1]);
+                    if (director != null) {
+                        director.agregarPelicula(pelicula);
+                    }
+                    String actoresJson = linea[0];
+
+                    if (!actoresJson.trim().isEmpty()) {
+                        JsonArray array = JsonParser.parseString(actoresJson.replace('\'','"')).getAsJsonArray();
+                        for (JsonElement elem : array) {
+                            ActorJson gJson = gson.fromJson(elem, ActorJson.class);
+                            Actor actorExistente = actores.get(gJson.getId());
+                            if (actorExistente == null) {
+                                actorExistente = new Actor(gJson.getId(), gJson.getName());
+                                actores.put(gJson.getId(), actorExistente);
+                            }
+                            actorExistente.agregarPelicula(pelicula); /// Ver si conviene esto o que se agreguen a una estructura desde el principio
+                            pelicula.agregarActor(actorExistente);
+                        }
+                    }
+                } catch (CsvValidationException | IOException e) {
+                    System.err.println("Error al leer una línea del CSV.");
+                } catch (Exception e) {
+                    ///System.err.println("Error en línea " + numeroLinea + ": " + Arrays.toString(linea));
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al abrir o cerrar el archivo: " + nombreArchivo, e);
+        }
     }
+
+    /// Falta cargar actores y directores del csv credits
 
     public ListaPeliculas filtrarPeliculasPorIdioma() {
         PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
@@ -181,7 +223,7 @@ public class UMovie {
             if (pelicula.cantidadEvaluaciones() == 0) continue;
             String idioma = pelicula.getIdiomaOriginal();
             if (idioma.equals("en")) {
-                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
+                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEn < 5) {
                     agregarOrdenado(nueva, ingles, posVaciaEn);
                     posVaciaEn++;
@@ -193,7 +235,7 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("fr")) {
-                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
+                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaFr < 5) {
                     agregarOrdenado(nueva, frances, posVaciaFr);
                     posVaciaFr++;
@@ -205,7 +247,7 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("es")) {
-                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
+                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEs < 5) {
                     agregarOrdenado(nueva, espaniol, posVaciaEs);
                     posVaciaEs++;
@@ -217,7 +259,7 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("it")) {
-                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
+                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaIt < 5) {
                     agregarOrdenado(nueva, italiano, posVaciaIt);
                     posVaciaIt++;
@@ -229,7 +271,7 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("pt")) {
-                PeliculaPorEvaluaciones nueva = convertirAPeliculaPorEvaluaciones(pelicula);
+                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaPt < 5) {
                     agregarOrdenado(nueva, portugues, posVaciaPt);
                     posVaciaPt++;
@@ -248,15 +290,6 @@ public class UMovie {
         ListaPeliculas top5 = filtrarPeliculasPorIdioma();
         return top5.toString();
     }
-    /// Retocar el metodo
-    public PeliculaPorCalificacionMedia convertirAPeliculaPorCalificacionMedia(Pelicula p) {
-        PeliculaPorCalificacionMedia nueva = new PeliculaPorCalificacionMedia();
-        nueva.setId(p.getId());
-        nueva.setTitulo(p.getTitulo());
-        nueva.setCalificacionMedia(p.getCalificacionMedia());
-        nueva.setEvaluaciones(p.getEvaluaciones());
-        return nueva;
-    }
 
     public PeliculaPorCalificacionMedia[] filtrarPorCalificacionMedia() {
         PeliculaPorCalificacionMedia[] top = new PeliculaPorCalificacionMedia[10];
@@ -265,7 +298,7 @@ public class UMovie {
 
         for (Pelicula pelicula : peliculas.values()) {
             pelicula.calcularMedia();
-            PeliculaPorCalificacionMedia nueva = convertirAPeliculaPorCalificacionMedia(pelicula);
+            PeliculaPorCalificacionMedia nueva = new PeliculaPorCalificacionMedia(pelicula);
             if (posVacia < 10) {
                 agregarOrdenado(nueva, top, posVacia);
                 posVacia++;

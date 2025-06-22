@@ -1,5 +1,6 @@
 package um.edu.uy.entities;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -10,11 +11,11 @@ public class Actor {
     private Map<Integer, Integer> cantidadEvaluacionesPorMes;
     private int idActor;
 
-    public Actor() {
-        this.peliculas = peliculas;
+    public Actor(int idActor, String nombre) {
+        this.peliculas = new ArrayList<Pelicula>();
         this.nombre = nombre;
         this.cantidadEvaluacionesPorMes = new Hashtable<>();
-        this.idActor = 0;
+        this.idActor = idActor;
     }
 
     public int cantidadPeliculasPorMes(int mes) {
@@ -30,6 +31,10 @@ public class Actor {
         return cantidad;
     }
 
+
+    public void agregarPelicula(Pelicula pelicula) {
+        this.peliculas.add(pelicula);
+    }
 
     /// Ver tema tiempo/mes de las peliculas
 

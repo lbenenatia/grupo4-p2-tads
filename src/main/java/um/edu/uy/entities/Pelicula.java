@@ -15,7 +15,7 @@ public class Pelicula implements Ingresable{
     private double calificacionMedia;
     private List<Evaluacion> evaluaciones;
 
-    public Pelicula() { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
+    public Pelicula(int id, String titulo, String idiomaOriginal, double ingresos) { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
         this.id = id;
         this.titulo = titulo;
         this.idiomaOriginal = idiomaOriginal;
@@ -24,6 +24,7 @@ public class Pelicula implements Ingresable{
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
         this.evaluaciones = new ArrayList<>();
+        this.actores = new ArrayList<>();
     }
 
     public void calcularMedia() {
@@ -48,6 +49,10 @@ public class Pelicula implements Ingresable{
     }
 
      */
+
+    public void agregarActor(Actor actor) {
+        this.actores.add(actor);
+    }
 
     public void agregarGenero(Genero g) {
         this.generos.add(g);

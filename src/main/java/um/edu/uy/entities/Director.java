@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Director {
+    private int id;
     private String nombre;
     private List<Pelicula> peliculas;
     private double mediana;
 
-    public Director() {
+    public Director(int id, String nombre) {
+        this.id = id;
         this.nombre = nombre;
         this.peliculas = new ArrayList<>();
         this.mediana = 0;
@@ -30,6 +32,10 @@ public class Director {
         else {
             this.mediana = (listaPuntajes.get(listaPuntajes.size() / 2) + listaPuntajes.get((listaPuntajes.size() - 1) / 2 )) / 2;
         }
+    }
+
+    public void agregarPelicula(Pelicula p) {
+        this.peliculas.add(p);
     }
 
     public int cantidadPeliculas() {
