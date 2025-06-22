@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Pelicula implements Ingresable{
+public class Pelicula{
     private int id;
     private String titulo;
     private String idiomaOriginal;
@@ -42,13 +42,6 @@ public class Pelicula implements Ingresable{
     public void agregarEvaluacion(Evaluacion e) {
         this.evaluaciones.add(e);
     }
-    /*      Va a ser necesario para poder comparar peliculas con colecciones
-    @Override
-    public int compareTo(Ingresable otroIngresable) {
-        return Double.compare(otroIngresable.getIngresos(), this.ingresos);
-    }
-
-     */
 
     public void agregarActor(Actor actor) {
         this.actores.add(actor);
@@ -70,7 +63,6 @@ public class Pelicula implements Ingresable{
         this.id = id;
     }
 
-    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -87,7 +79,6 @@ public class Pelicula implements Ingresable{
         this.idiomaOriginal = idiomaOriginal;
     }
 
-    @Override
     public double getIngresos() {
         return ingresos;
     }

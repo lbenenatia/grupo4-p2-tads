@@ -1,7 +1,5 @@
 package um.edu.uy.tads;
 
-import um.edu.uy.entities.Ingresable;
-
 import java.util.Arrays;
 
 public class Sorting{

@@ -7,7 +7,7 @@ import um.edu.uy.converter.TituloColeccionJson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Coleccion implements Ingresable, Comparable<Coleccion> {
+public class Coleccion implements Comparable<Coleccion> {
     @CsvCustomBindByPosition(position = 1, converter = IdColeccionJson.class)
     private int id;
     private List<Pelicula> peliculas = new ArrayList<>();
@@ -62,7 +62,6 @@ public class Coleccion implements Ingresable, Comparable<Coleccion> {
         this.peliculas = peliculas;
     }
 
-    @Override
     public double getIngresos() {
         return ingresos;
     }
@@ -71,7 +70,6 @@ public class Coleccion implements Ingresable, Comparable<Coleccion> {
         this.ingresos = ingresos;
     }
 
-    @Override
     public String getTitulo() {
         return titulo;
     }
