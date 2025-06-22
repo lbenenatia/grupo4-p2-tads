@@ -204,8 +204,6 @@ public class UMovie {
         }
     }
 
-    /// Falta cargar actores y directores del csv credits
-
     public ListaPeliculas filtrarPeliculasPorIdioma() {
         PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
         PeliculaPorEvaluaciones[] frances = new PeliculaPorEvaluaciones[5];
