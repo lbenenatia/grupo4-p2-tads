@@ -1,4 +1,6 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.linkedlist;
+
+import um.edu.uy.tads.hash.Entrada;
 
 public class LinkedListL<E> implements ListaL<E> {
     private Nodo<E> head;

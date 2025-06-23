@@ -1,4 +1,4 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.linkedlist;
 
 public interface ListaL <E>{
     public void add(E item);

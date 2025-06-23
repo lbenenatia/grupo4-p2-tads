@@ -3,7 +3,6 @@ package um.edu.uy;
 import um.edu.uy.consultas.*;
 import um.edu.uy.entities.UMovie;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -17,16 +16,16 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         while (true) {
-            System.out.println("Menu principal" + "\n" +
-                    "Seleccione la opcion que desee:\n" +
-                    "1. Carga de datos\n" +
-                    "2. Ejecutar consultas\n" +
-                    "3. Salir");
+            System.out.println("Menu principal");
+            System.out.println("Seleccione la opcion que desee:");
+            System.out.println("1. Carga de datos");
+            System.out.println("2. Ejecutar consultas");
+            System.out.println("3. Salir");
 
-            System.out.println("Ingrese una opcion: ");
+            System.out.println("Ingrese una opcion:");
               while (!input.hasNextInt()) {
-                System.out.println("Opcion invalida\n" +
-                        "Ingrese otra opcion: ");
+                System.out.println("Opcion invalida");
+                System.out.println("Ingrese otra opcion:");
                 input.next();
             }
 
@@ -42,19 +41,18 @@ public class Main {
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {
-                    System.out.println(
-                            "1. Top 5 de las peliculas que mas calificaciones por idioma tienen.\n" +
-                            "2. Top 10 de las peliculas que mejor calificacion media tienen por parte de los usuarios.\n" +
-                            "3. Top 5 de las colecciones que mas ingresos generaron.\n" +
-                            "4. Top 10 de los directores que mejor calificacion tienen.\n" +
-                            "5. Actor con mas calificaciones recibidas en cada mes del año.\n" +
-                            "6. Usuarios con mas calificaciones por genero\n" +
-                            "7. Salir");
+                    System.out.println("1. Top 5 de las peliculas que mas calificaciones por idioma tienen.");
+                    System.out.println("2. Top 10 de las peliculas que mejor calificacion media tienen por parte de los usuarios.");
+                    System.out.println("3. Top 5 de las colecciones que mas ingresos generaron.");
+                    System.out.println("4. Top 10 de los directores que mejor calificacion tienen.");
+                    System.out.println("5. Actor con mas calificaciones recibidas en cada mes del año.");
+                    System.out.println("6. Usuarios con mas calificaciones por genero");
+                    System.out.println("7. Salir");
 
                     System.out.println("Ingrese una opcion: ");
                     while (!input.hasNextInt()) {
-                        System.out.println("Opcion invalida\n" +
-                                "Ingrese otra opcion: ");
+                        System.out.println("Opcion invalida");
+                        System.out.println("Ingrese otra opcion:");
                         input.next();
                     }
 
@@ -64,7 +62,6 @@ public class Main {
                         case 1:
                             long startTime = System.currentTimeMillis();
                             System.out.println(top5PorIdioma.ejecutar(uMovie));
-                            System.out.println();
                             long endTime = System.currentTimeMillis();
                             long duration = endTime - startTime;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration + " milisegundos");
@@ -108,7 +105,6 @@ public class Main {
                         case 7:
                             break loop;
                     }
-
                 }
             } else if (seleccion1 == 3) { // Break
                 return;

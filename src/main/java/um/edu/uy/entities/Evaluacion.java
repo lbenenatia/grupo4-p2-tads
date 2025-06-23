@@ -1,8 +1,8 @@
 package um.edu.uy.entities;
 
 import com.opencsv.bean.CsvBindByPosition;
-
-import java.util.Date;
+import com.opencsv.bean.CsvCustomBindByPosition;
+import um.edu.uy.converter.FechaConversor;
 
 public class Evaluacion implements Comparable<Evaluacion> {
     @CsvBindByPosition(position = 0)
@@ -11,7 +11,7 @@ public class Evaluacion implements Comparable<Evaluacion> {
     private int idPelicula;
     @CsvBindByPosition(position = 2)
     private double puntaje;
-    @CsvBindByPosition(position = 3)
+    @CsvCustomBindByPosition(position = 3, converter = FechaConversor.class)
     private int fecha;
 
     public Evaluacion() {
@@ -24,14 +24,11 @@ public class Evaluacion implements Comparable<Evaluacion> {
     @Override
     public int compareTo(Evaluacion otraEvaluacion) {
         return Double.compare(this.puntaje, otraEvaluacion.puntaje);
+//    }
+//
+//    public int convertFecha(String fecha) {
+//        return new Date(Long.parseLong(this.fecha));
     }
-
-    /*
-    public Date convertFecha(String fecha) {
-        return new Date(Long.parseLong(this.fecha));
-    }
-
-     */
 
     public int getIdUsuario() {
         return idUsuario;

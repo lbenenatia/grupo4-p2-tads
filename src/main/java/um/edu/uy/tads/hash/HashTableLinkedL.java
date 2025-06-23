@@ -1,4 +1,8 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.hash;
+
+import um.edu.uy.tads.ElementoYaExistenteException;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
 public class HashTableLinkedL<K, T extends Comparable<T>> implements HashTableL<K,T>{
     private ListaL<Entrada<K,T>>[] hashTable;
