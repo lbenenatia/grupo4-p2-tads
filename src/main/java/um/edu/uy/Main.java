@@ -1,6 +1,6 @@
 package um.edu.uy;
 
-import um.edu.uy.consultas.TopPeliculasPorIdioma;
+import um.edu.uy.consultas.*;
 import um.edu.uy.entities.UMovie;
 
 import java.util.Scanner;
@@ -9,6 +9,10 @@ public class Main {
     public static void main(String[] args) {
         UMovie uMovie = new UMovie();
         TopPeliculasPorIdioma top5PorIdioma = new TopPeliculasPorIdioma();
+        TopPeliculasPorCalificacionMedia top10PorCalificacionMedia = new TopPeliculasPorCalificacionMedia();
+        TopColeccionPorIngreso top5PorIngreso = new TopColeccionPorIngreso();
+        TopDirectores top10Directores = new TopDirectores();
+        TopActorPorMes topActorPorMes = new TopActorPorMes();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -58,7 +62,6 @@ public class Main {
                     switch (seleccion2) {
                         case 1:
                             long startTime = System.currentTimeMillis();
-                            //System.out.println(uMovie.top5PorIdioma());
                             System.out.println(top5PorIdioma.ejecutar(uMovie));
                             long endTime = System.currentTimeMillis();
                             long duration = endTime - startTime;
@@ -67,7 +70,7 @@ public class Main {
 
                         case 2:
                             long startTime2 = System.currentTimeMillis();
-                            uMovie.top10CalificacionMedia();
+                            top10PorCalificacionMedia.ejecutar(uMovie);
                             long endTime2 = System.currentTimeMillis();
                             long duration2 = endTime2 - startTime2;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration2 + " milisegundos");
@@ -75,7 +78,7 @@ public class Main {
 
                         case 3:
                             long startTime3 = System.currentTimeMillis();
-                            uMovie.top5Ingresos();
+                            top5PorIngreso.ejecutar(uMovie);
                             long endTime3 = System.currentTimeMillis();
                             long duration3 = endTime3 - startTime3;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration3 + " milisegundos");
@@ -83,13 +86,18 @@ public class Main {
 
                         case 4:
                             long startTime4 = System.currentTimeMillis();
-                            uMovie.top10Directores();
+                            top10Directores.ejecutar(uMovie);
                             long endTime4 = System.currentTimeMillis();
                             long duration4 = endTime4 - startTime4;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration4 + " milisegundos");
                             break;
 
-                        case 5: // funcion 5
+                        case 5:
+                            long startTime5 = System.currentTimeMillis();
+                            topActorPorMes.ejecutar(uMovie);
+                            long endTime5 = System.currentTimeMillis();
+                            long duration5 = endTime5 - startTime5;
+                            System.out.println("Tiempo de ejecucion de la consulta: " + duration5 + " milisegundos");
                             break;
 
                         case 6: // funcion 6
