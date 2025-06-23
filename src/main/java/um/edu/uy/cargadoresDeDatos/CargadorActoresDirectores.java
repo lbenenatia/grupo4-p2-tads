@@ -21,16 +21,17 @@ import java.util.Map;
 public class CargadorActoresDirectores {
     private final Map<Integer, Pelicula> peliculas;
     private final Map<Integer, Director> directores;
+    private final Map<Integer, Actor> actores;
 
     public CargadorActoresDirectores(Map<Integer, Pelicula> peliculas, Map<Integer,
-                                    Director> directores) {
+                                    Director> directores, Map<Integer, Actor> actores) {
         this.peliculas = peliculas;
         this.directores = directores;
+        this.actores = actores;
     }
 
     public void cargar(String nombreArchivo) {
-        Map<Integer, Actor> actores; //Para no cargarlo en el programa principal
-        actores = new Hashtable<>();
+
         try (CSVReader reader = new CSVReader(new FileReader(nombreArchivo))) {
             try {
                 reader.readNext(); // Suponiendo que hay encabezado
