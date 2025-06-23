@@ -301,14 +301,17 @@ public class UMovie {
 
         for (Pelicula pelicula : peliculas.values()) {
             pelicula.calcularMedia();
+            int cantidad = pelicula.cantidadEvaluaciones();
             PeliculaPorCalificacionMedia nueva = new PeliculaPorCalificacionMedia(pelicula);
-            if (posVacia < 10) {
-                agregarOrdenado(nueva, top, posVacia);
-                posVacia++;
-            } else {
-                if (nueva.compareTo(top[9])>0) {
-                    top[9] = nueva;
-                    ordenarUltimo(top, 9);
+            if (cantidad > 100) {
+                if (posVacia < 10) {
+                    agregarOrdenado(nueva, top, posVacia);
+                    posVacia++;
+                } else {
+                    if (nueva.compareTo(top[9]) > 0) {
+                        top[9] = nueva;
+                        ordenarUltimo(top, 9);
+                    }
                 }
             }
         }
