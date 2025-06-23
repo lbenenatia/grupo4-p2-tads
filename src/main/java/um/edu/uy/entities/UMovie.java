@@ -6,6 +6,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import um.edu.uy.cargadoresDeDatos.CargadorActoresDirectores;
+import um.edu.uy.cargadoresDeDatos.CargadorEvaluaciones;
+import um.edu.uy.cargadoresDeDatos.CargadorPeliculas;
 import um.edu.uy.converter.ActorJson;
 import um.edu.uy.converter.ColeccionJson;
 import um.edu.uy.converter.DirectorJson;
@@ -29,6 +32,17 @@ public class UMovie {
         this.colecciones = new Hashtable<>();
         this.directores = new Hashtable<>();
         this.generos = new Hashtable<>();
+    }
+
+    public void cargarDatos(){
+        CargadorPeliculas cargadorPeliculas = new CargadorPeliculas(peliculas, colecciones, generos);
+        cargadorPeliculas.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
+
+        CargadorEvaluaciones cargadorEvaluaciones = new CargadorEvaluaciones(peliculas);
+        cargadorEvaluaciones.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
+
+        CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores);
+        cargadorActoresDirectores.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\credits.csv");
     }
 
     public void cargarPeliculas(String nombreArchivo) {
@@ -200,8 +214,6 @@ public class UMovie {
         }
     }
 
-    /// Falta cargar actores y directores del csv credits
-
     public ListaPeliculas filtrarPeliculasPorIdioma() {
         PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
         PeliculaPorEvaluaciones[] frances = new PeliculaPorEvaluaciones[5];
@@ -217,8 +229,8 @@ public class UMovie {
         for (Pelicula pelicula : peliculas.values()) { /// En nuestro caso probablemente tengamos que recorrer con un i
             if (pelicula.cantidadEvaluaciones() == 0) continue;
             String idioma = pelicula.getIdiomaOriginal();
+            PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
             if (idioma.equals("en")) {
-                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEn < 5) {
                     agregarOrdenado(nueva, ingles, posVaciaEn);
                     posVaciaEn++;
@@ -230,7 +242,6 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("fr")) {
-                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaFr < 5) {
                     agregarOrdenado(nueva, frances, posVaciaFr);
                     posVaciaFr++;
@@ -242,7 +253,6 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("es")) {
-                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaEs < 5) {
                     agregarOrdenado(nueva, espaniol, posVaciaEs);
                     posVaciaEs++;
@@ -254,7 +264,6 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("it")) {
-                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaIt < 5) {
                     agregarOrdenado(nueva, italiano, posVaciaIt);
                     posVaciaIt++;
@@ -266,7 +275,6 @@ public class UMovie {
                 }
             }
             else if (idioma.equals("pt")) {
-                PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
                 if (posVaciaPt < 5) {
                     agregarOrdenado(nueva, portugues, posVaciaPt);
                     posVaciaPt++;
@@ -435,4 +443,35 @@ public class UMovie {
         }
     }
 
+    public Map<Integer, Pelicula> getPeliculas() {
+        return peliculas;
+    }
+
+    public void setPeliculas(Map<Integer, Pelicula> peliculas) {
+        this.peliculas = peliculas;
+    }
+
+    public Map<Integer, Coleccion> getColecciones() {
+        return colecciones;
+    }
+
+    public void setColecciones(Map<Integer, Coleccion> colecciones) {
+        this.colecciones = colecciones;
+    }
+
+    public Map<Integer, Director> getDirectores() {
+        return directores;
+    }
+
+    public void setDirectores(Map<Integer, Director> directores) {
+        this.directores = directores;
+    }
+
+    public Map<Integer, Genero> getGeneros() {
+        return generos;
+    }
+
+    public void setGeneros(Map<Integer, Genero> generos) {
+        this.generos = generos;
+    }
 }

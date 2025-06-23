@@ -1,12 +1,15 @@
 package um.edu.uy;
 
+import um.edu.uy.consultas.TopPeliculasPorIdioma;
 import um.edu.uy.entities.UMovie;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         UMovie uMovie = new UMovie();
+        TopPeliculasPorIdioma top5PorIdioma = new TopPeliculasPorIdioma();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -26,6 +29,7 @@ public class Main {
             int seleccion1 = input.nextInt();
 
             if (seleccion1 == 1) {
+                /*
                 long startTime = System.currentTimeMillis();
                 uMovie.cargarPeliculas("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
                 uMovie.cargarEvaluaciones("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
@@ -33,6 +37,14 @@ public class Main {
                 long endTime = System.currentTimeMillis();
                 long duration = endTime - startTime;
                 System.out.println("Carga de datos exitosa, tiempo de ejecución de la carga: " + duration + " milisegundos");
+
+                 */
+                long startTime = System.currentTimeMillis();
+                uMovie.cargarDatos();
+                long endTime = System.currentTimeMillis();
+                long duration = endTime - startTime;
+                System.out.println("Carga de datos exitosa, tiempo de ejecución de la carga: " + duration + " milisegundos");
+
             } else if (seleccion1 == 2) {
                 loop:
                 while (true) {
@@ -57,7 +69,9 @@ public class Main {
                     switch (seleccion2) {
                         case 1:
                             long startTime = System.currentTimeMillis();
-                            System.out.println(uMovie.top5PorIdioma());
+                            //System.out.println(uMovie.top5PorIdioma());
+                            System.out.println(top5PorIdioma.ejecutar(uMovie));
+                            System.out.println();
                             long endTime = System.currentTimeMillis();
                             long duration = endTime - startTime;
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration + " milisegundos");

@@ -21,7 +21,6 @@ public class Coleccion implements Comparable<Coleccion> {
         this.titulo = titulo;
     }
 
-    /// Podría hacerse esto y al agregar pelicula ya se va calculando el ingreso
     public void agregarPelicula(Pelicula p) {
         this.peliculas.add(p);
         this.ingresos += p.getIngresos();
