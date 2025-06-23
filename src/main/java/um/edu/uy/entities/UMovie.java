@@ -36,13 +36,13 @@ public class UMovie {
 
     public void cargarDatos(){
         CargadorPeliculas cargadorPeliculas = new CargadorPeliculas(peliculas, colecciones, generos);
-        cargadorPeliculas.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\movies_metadata.csv");
+        cargadorPeliculas.cargar("movies_metadata.csv");
 
         CargadorEvaluaciones cargadorEvaluaciones = new CargadorEvaluaciones(peliculas);
-        cargadorEvaluaciones.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
+        cargadorEvaluaciones.cargar("ratings_1mm.csv");
 
         CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores);
-        cargadorActoresDirectores.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\credits.csv");
+        cargadorActoresDirectores.cargar("credits.csv");
     }
 
     public void cargarPeliculas(String nombreArchivo) {

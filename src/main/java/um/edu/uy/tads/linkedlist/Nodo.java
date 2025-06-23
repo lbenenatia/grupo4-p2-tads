@@ -1,4 +1,4 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.linkedlist;
 
 public class Nodo<E> {
     private E valor;

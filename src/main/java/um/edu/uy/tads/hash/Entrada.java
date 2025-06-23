@@ -1,4 +1,4 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.hash;
 
 public class Entrada<K, T extends Comparable<T>> implements Comparable<Entrada<K, T>> {
     private K clave;

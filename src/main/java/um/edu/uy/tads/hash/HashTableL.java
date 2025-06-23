@@ -1,4 +1,6 @@
-package um.edu.uy.tads;
+package um.edu.uy.tads.hash;
+
+import um.edu.uy.tads.ElementoYaExistenteException;
 
 public interface HashTableL <K,T> {
     public void insertar (K clave, T valor) throws ElementoYaExistenteException;
