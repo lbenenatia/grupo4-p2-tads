@@ -66,7 +66,8 @@ public class TopUsuarioPorGenero {
         for (int i = 0; i < 10; i++) {
             int idUsuario = topUsuarioPorGenero[i].getKey();
             int cantEvaluaciones = topUsuarioPorGenero[i].getData();
-            System.out.println(idUsuario + ", " + top10Generos[i] + ", " + cantEvaluaciones);
+            String genero = top10Generos[i].getNombre();
+            System.out.println(idUsuario + ", " + genero + ", " + cantEvaluaciones);
         }
     }
 }
