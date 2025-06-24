@@ -30,11 +30,11 @@ public class UMovie {
         CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores, actores);
         cargadorActoresDirectores.cargar("credits.csv");
 
-        System.out.println(peliculas.size());
-        System.out.println(colecciones.size());
-        System.out.println(directores.size());
-        System.out.println(generos.size());
-        System.out.println(actores.size());
+        System.out.println("Peliculas: " + peliculas.size());
+        System.out.println("Colecciones: " + colecciones.size());
+        System.out.println("Directores: " + directores.size());
+        System.out.println("Generos: " + generos.size());
+        System.out.println("Actores: " + actores.size());
     }
 
     public Map<Integer, Pelicula> getPeliculas() {
