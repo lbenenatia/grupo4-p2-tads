@@ -28,7 +28,7 @@ public class UMovie {
         cargadorEvaluaciones.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\ratings_1mm.csv");
 
         CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores, actores);
-        cargadorActoresDirectores.cargar("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\credits.csv");
+        cargadorActoresDirectores.cargar2("C:\\Users\\lmart\\obg_prog2\\obligatorio2\\credits.csv");
     }
 
 

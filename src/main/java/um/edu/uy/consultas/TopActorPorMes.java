@@ -26,12 +26,12 @@ public class TopActorPorMes {
                     int valorAntiguo = actor.getCantidadEvaluacionesPorMes().get(evaluacion.getFecha());
                     actor.getCantidadEvaluacionesPorMes().replace(evaluacion.getFecha(), valorAntiguo + 1);
                 }
-                for (int i = 1; i <= 12; i++) {
+                for (int i = 0; i <= 11; i++) {
                     if (topActorMes[i] == null) {
                         topActorMes[i] = actor;
                     }
-                    if (actor.getCantidadEvaluacionesPorMes().get(i) > topActorMes[i].getCantidadEvaluacionesPorMes().get(i)) {
-                        topActorMes[i - 1] = actor;
+                    else if (actor.getCantidadEvaluacionesPorMes().get(i) > topActorMes[i].getCantidadEvaluacionesPorMes().get(i)) {
+                        topActorMes[i] = actor;
                     }
                 }
             }

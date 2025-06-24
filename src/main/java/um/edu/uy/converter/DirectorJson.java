@@ -19,7 +19,10 @@ public class DirectorJson extends AbstractBeanField<String, String> {
         if (value.trim().isEmpty()) {
             return null;
         }
-        String json = value.replace('\'', '"');
+        // Reemplazo estructural seguro de comillas simples por dobles
+        String json = value
+                .replaceAll("([\\{,]\\s*)'(\\w+)'\\s*:", "$1\"$2\":") // claves
+                .replaceAll(":\\s*'([^']*)'", ":\"$1\"");             // valores
         JsonElement element = JsonParser.parseString(json);
         if (!element.isJsonArray()) {
             return null;
