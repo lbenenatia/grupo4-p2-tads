@@ -5,33 +5,25 @@ import um.edu.uy.entities.Evaluacion;
 import um.edu.uy.entities.Pelicula;
 import um.edu.uy.entities.UMovie;
 
-import java.util.Hashtable;
 import java.util.Map;
 
 public class TopActorPorMes {
     public Actor[] filtrarActores(UMovie uMovie){
-        Map<Integer, Actor> actores = new Hashtable<>();
-        Map<Integer, Pelicula> peliculas = uMovie.getPeliculas();
+        Map<Integer, Actor> actores = uMovie.getActores();
         Actor [] topActorMes = new Actor[12];
-        for (Pelicula pelicula : peliculas.values()) {
-            for (Actor actor : pelicula.getActores()) {
-                if (!actores.containsValue(actor)) { /// si no pertenece
-                    actores.put(actor.getIdActor(), actor);
-                }
-            }
-        }
+
         for (Actor actor : actores.values()) {
             for (Pelicula pelicula : actor.getPeliculas()) {
                 for (Evaluacion evaluacion : pelicula.getEvaluaciones()) {
                     int valorAntiguo = actor.getCantidadEvaluacionesPorMes().get(evaluacion.getFecha());
                     actor.getCantidadEvaluacionesPorMes().replace(evaluacion.getFecha(), valorAntiguo + 1);
                 }
-                for (int i = 1; i <= 12; i++) {
+                for (int i = 0; i <= 11; i++) {
                     if (topActorMes[i] == null) {
                         topActorMes[i] = actor;
                     }
-                    if (actor.getCantidadEvaluacionesPorMes().get(i) > topActorMes[i].getCantidadEvaluacionesPorMes().get(i)) {
-                        topActorMes[i - 1] = actor;
+                    else if (actor.getCantidadEvaluacionesPorMes().get(i) > topActorMes[i].getCantidadEvaluacionesPorMes().get(i)) {
+                        topActorMes[i] = actor;
                     }
                 }
             }
@@ -56,7 +48,7 @@ public class TopActorPorMes {
         meses[11] = "Diciembre";
 
         for (int i = 0; i < 12; i++) {
-            System.out.println(meses[i] + top[i].getNombre() + top[i].getCantidadEvaluacionesPorMes().get(i) + top[i].cantidadPeliculasPorMes(i));
+            System.out.println(meses[i] + ", " + top[i].getNombre() + ", " + top[i].getCantidadEvaluacionesPorMes().get(i) + ", " + top[i].cantidadPeliculasPorMes(i));
         }
     }
 }

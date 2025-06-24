@@ -13,6 +13,7 @@ public class Main {
         TopColeccionPorIngreso top5PorIngreso = new TopColeccionPorIngreso();
         TopDirectores top10Directores = new TopDirectores();
         TopActorPorMes topActorPorMes = new TopActorPorMes();
+        TopUsuarioPorGenero topUsuarioPorGenero = new TopUsuarioPorGenero();
         Scanner input = new Scanner(System.in);
 
         while (true) {
@@ -99,7 +100,12 @@ public class Main {
                             System.out.println("Tiempo de ejecucion de la consulta: " + duration5 + " milisegundos");
                             break;
 
-                        case 6: // funcion 6
+                        case 6:
+                            long startTime6 = System.currentTimeMillis();
+                            topUsuarioPorGenero.ejecutar(uMovie);
+                            long endTime6 = System.currentTimeMillis();
+                            long duration6 = endTime6 - startTime6;
+                            System.out.println("Tiempo de ejecucion de la consulta: " + duration6 + " milisegundos");
                             break;
 
                         case 7:

@@ -10,12 +10,14 @@ public class UMovie {
     private Map<Integer, Coleccion> colecciones;
     private Map<Integer, Director> directores;
     private Map<Integer, Genero> generos;
+    private Map<Integer, Actor> actores;
 
     public UMovie() {
         this.peliculas = new Hashtable<>();
         this.colecciones = new Hashtable<>();
         this.directores = new Hashtable<>();
         this.generos = new Hashtable<>();
+        this.actores = new Hashtable<>();
     }
 
     public void cargarDatos(){
@@ -25,8 +27,14 @@ public class UMovie {
         CargadorEvaluaciones cargadorEvaluaciones = new CargadorEvaluaciones(peliculas);
         cargadorEvaluaciones.cargar("ratings_1mm.csv");
 
-        CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores);
+        CargadorActoresDirectores cargadorActoresDirectores = new CargadorActoresDirectores(peliculas, directores, actores);
         cargadorActoresDirectores.cargar("credits.csv");
+
+        System.out.println(peliculas.size());
+        System.out.println(colecciones.size());
+        System.out.println(directores.size());
+        System.out.println(generos.size());
+        System.out.println(actores.size());
     }
 
     public Map<Integer, Pelicula> getPeliculas() {
@@ -59,5 +67,13 @@ public class UMovie {
 
     public void setGeneros(Map<Integer, Genero> generos) {
         this.generos = generos;
+    }
+
+    public Map<Integer, Actor> getActores() {
+        return actores;
+    }
+
+    public void setActores(Map<Integer, Actor> actores) {
+        this.actores = actores;
     }
 }

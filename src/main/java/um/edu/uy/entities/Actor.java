@@ -15,6 +15,9 @@ public class Actor {
         this.peliculas = new ArrayList<Pelicula>();
         this.nombre = nombre;
         this.cantidadEvaluacionesPorMes = new Hashtable<>();
+        for (int i = 0; i < 12; i++) {
+            cantidadEvaluacionesPorMes.put(i, 0);
+        }
         this.idActor = idActor;
     }
 
