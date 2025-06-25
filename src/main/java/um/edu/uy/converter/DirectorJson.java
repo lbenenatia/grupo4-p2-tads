@@ -4,13 +4,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.opencsv.bean.AbstractBeanField;
 import um.edu.uy.entities.Director;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 public class DirectorJson extends AbstractBeanField<String, String> {
-    private Map<Integer, Director> directoresExistentes;
+    private HashTableL<Integer, Director> directoresExistentes;
 
-    public DirectorJson(Map<Integer, Director> directoresExistentes) {
+    public DirectorJson(HashTableL<Integer, Director> directoresExistentes) {
         this.directoresExistentes = directoresExistentes;
     }
 

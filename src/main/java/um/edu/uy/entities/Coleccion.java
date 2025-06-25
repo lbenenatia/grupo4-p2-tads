@@ -3,20 +3,20 @@ package um.edu.uy.entities;
 import com.opencsv.bean.CsvCustomBindByPosition;
 import um.edu.uy.converter.IdColeccionJson;
 import um.edu.uy.converter.TituloColeccionJson;
-
-import java.util.ArrayList;
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
 public class Coleccion implements Comparable<Coleccion> {
     @CsvCustomBindByPosition(position = 1, converter = IdColeccionJson.class)
-    private int id;
-    private List<Pelicula> peliculas = new ArrayList<>();
+    private Integer id;
+    private ListaL<Pelicula> peliculas;
     private double ingresos;
     @CsvCustomBindByPosition(position = 1, converter = TituloColeccionJson.class)
     private String titulo;
 
-    public Coleccion(int id, String titulo) {
+    public Coleccion(Integer id, String titulo) {
         this.id = id;
+        this.peliculas = new LinkedListL<>();
         this.ingresos = 0;
         this.titulo = titulo;
     }
@@ -30,8 +30,8 @@ public class Coleccion implements Comparable<Coleccion> {
         return this.getPeliculas().size();
     }
 
-    public List<Integer> idPeliculas() {
-        List<Integer> ids = new ArrayList<>();
+    public ListaL<Integer> idPeliculas() {
+        ListaL<Integer> ids = new LinkedListL<>();
 
         for (Pelicula pelicula : peliculas) {
             ids.add(pelicula.getId());
@@ -44,20 +44,19 @@ public class Coleccion implements Comparable<Coleccion> {
         return Double.compare(this.ingresos, otraColeccion.getIngresos());
     }
 
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public List<Pelicula> getPeliculas() {
+    public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(List<Pelicula> peliculas) {
+    public void setPeliculas(ListaL<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 

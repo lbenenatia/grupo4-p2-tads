@@ -1,17 +1,17 @@
 package um.edu.uy.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
 public class Genero implements Comparable<Genero> {
-    private int id;
+    private Integer id;
     private String nombre;
-    private List<Evaluacion> evaluaciones;
+    private ListaL<Evaluacion> evaluaciones;
 
-    public Genero(int id, String nombre) {
+    public Genero(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.evaluaciones = new ArrayList<>();
+        this.evaluaciones = new LinkedListL<>();
     }
 
     public void agregarEvaluacion(Evaluacion e) {
@@ -27,11 +27,11 @@ public class Genero implements Comparable<Genero> {
         return Integer.compare(this.cantidadEvaluaciones(), otroGenero.cantidadEvaluaciones());
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -43,11 +43,11 @@ public class Genero implements Comparable<Genero> {
         this.nombre = nombre;
     }
 
-    public List<Evaluacion> getEvaluaciones() {
+    public ListaL<Evaluacion> getEvaluaciones() {
         return evaluaciones;
     }
 
-    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+    public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
     }
 }

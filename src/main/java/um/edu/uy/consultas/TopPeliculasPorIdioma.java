@@ -4,15 +4,14 @@ import um.edu.uy.entities.ListaPeliculas;
 import um.edu.uy.entities.Pelicula;
 import um.edu.uy.entities.PeliculaPorEvaluaciones;
 import um.edu.uy.entities.UMovie;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 import static um.edu.uy.tads.Sorting.agregarOrdenado;
 import static um.edu.uy.tads.Sorting.ordenarUltimo;
 
 public class TopPeliculasPorIdioma {
     public ListaPeliculas filtrarPorIdioma(UMovie umovie){
-        Map<Integer, Pelicula> peliculas = umovie.getPeliculas();
+        HashTableL<Integer, Pelicula> peliculas = umovie.getPeliculas();
         PeliculaPorEvaluaciones[] ingles = new PeliculaPorEvaluaciones[5];
         PeliculaPorEvaluaciones[] frances = new PeliculaPorEvaluaciones[5];
         PeliculaPorEvaluaciones[] espaniol = new PeliculaPorEvaluaciones[5];

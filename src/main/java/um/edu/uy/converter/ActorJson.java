@@ -1,10 +1,10 @@
 package um.edu.uy.converter;
 
 public class ActorJson {
-    private int id;
+    private Integer id;
     private String name;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

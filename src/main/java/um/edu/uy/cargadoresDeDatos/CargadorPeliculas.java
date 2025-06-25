@@ -11,19 +11,20 @@ import um.edu.uy.converter.GeneroJson;
 import um.edu.uy.entities.Coleccion;
 import um.edu.uy.entities.Genero;
 import um.edu.uy.entities.Pelicula;
+import um.edu.uy.tads.hash.HashTableL;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
 
 public class CargadorPeliculas {
-    private final Map<Integer, Pelicula> peliculas;
-    private final Map<Integer, Coleccion> colecciones;
-    private final Map<Integer, Genero> generos;
+    private final HashTableL<Integer, Pelicula> peliculas;
+    private final HashTableL<Integer, Coleccion> colecciones;
+    private final HashTableL<Integer, Genero> generos;
 
-    public CargadorPeliculas(Map<Integer, Pelicula> peliculas,
-                             Map<Integer, Coleccion> colecciones,
-                             Map<Integer, Genero> generos) {
+    public CargadorPeliculas(HashTableL<Integer, Pelicula> peliculas,
+                             HashTableL<Integer, Coleccion> colecciones,
+                             HashTableL<Integer, Genero> generos) {
         this.peliculas = peliculas;
         this.colecciones = colecciones;
         this.generos = generos;

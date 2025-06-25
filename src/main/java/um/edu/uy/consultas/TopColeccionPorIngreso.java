@@ -3,16 +3,15 @@ package um.edu.uy.consultas;
 import um.edu.uy.entities.Coleccion;
 import um.edu.uy.entities.Pelicula;
 import um.edu.uy.entities.UMovie;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 import static um.edu.uy.tads.Sorting.agregarOrdenado;
 import static um.edu.uy.tads.Sorting.ordenarUltimo;
 
 public class TopColeccionPorIngreso {
     public Coleccion[] filtrarPorIngresos(UMovie umovie) {
-        Map<Integer, Pelicula> peliculas = umovie.getPeliculas();
-        Map<Integer, Coleccion> colecciones = umovie.getColecciones();
+        HashTableL<Integer, Pelicula> peliculas = umovie.getPeliculas();
+        HashTableL<Integer, Coleccion> colecciones = umovie.getColecciones();
         Coleccion[] top = new Coleccion[5];
         int posVacia = 0;
 

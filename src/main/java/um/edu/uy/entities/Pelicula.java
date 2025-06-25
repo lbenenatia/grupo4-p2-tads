@@ -1,30 +1,29 @@
 package um.edu.uy.entities;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
-public class Pelicula{
-    private int id;
+public class Pelicula implements Comparable<Pelicula> {
+    private Integer id;
     private String titulo;
     private String idiomaOriginal;
     private double ingresos;
-    private List<Genero> generos;
+    private ListaL<Genero> generos;
     private boolean perteneceAColeccion = false;
-    private List<Actor> actores;
+    private ListaL<Actor> actores;
     private double calificacionMedia;
-    private List<Evaluacion> evaluaciones;
+    private ListaL<Evaluacion> evaluaciones;
 
-    public Pelicula(int id, String titulo, String idiomaOriginal, double ingresos) { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
+    public Pelicula(Integer id, String titulo, String idiomaOriginal, double ingresos) { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
         this.id = id;
         this.titulo = titulo;
         this.idiomaOriginal = idiomaOriginal;
         this.ingresos = ingresos;
-        this.generos = new ArrayList<>();
+        this.generos = new LinkedListL<>();
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
-        this.evaluaciones = new ArrayList<>();
-        this.actores = new ArrayList<>();
+        this.evaluaciones = new LinkedListL<>();
+        this.actores = new LinkedListL<>();
     }
 
     public void calcularMedia() {
@@ -55,11 +54,11 @@ public class Pelicula{
         return this.getEvaluaciones().size();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -87,11 +86,11 @@ public class Pelicula{
         this.ingresos = ingresos;
     }
 
-    public List<Genero> getGeneros() {
+    public ListaL<Genero> getGeneros() {
         return generos;
     }
 
-    public void setGeneros(List<Genero> generos) {
+    public void setGeneros(ListaL<Genero> generos) {
         this.generos = generos;
     }
 
@@ -111,19 +110,24 @@ public class Pelicula{
         this.perteneceAColeccion = perteneceAColeccion;
     }
 
-    public List<Evaluacion> getEvaluaciones() {
+    public ListaL<Evaluacion> getEvaluaciones() {
         return evaluaciones;
     }
 
-    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+    public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
     }
 
-    public List<Actor> getActores() {
+    public ListaL<Actor> getActores() {
         return actores;
     }
 
-    public void setActores(List<Actor> actores) {
+    public void setActores(ListaL<Actor> actores) {
         this.actores = actores;
+    }
+
+    @Override
+    public int compareTo(Pelicula otraPelicula) {
+        return Double.compare(this.getCalificacionMedia(), otraPelicula.getCalificacionMedia());
     }
 }

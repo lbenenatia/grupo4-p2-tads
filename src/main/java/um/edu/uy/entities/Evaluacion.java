@@ -6,9 +6,9 @@ import um.edu.uy.converter.FechaConversor;
 
 public class Evaluacion implements Comparable<Evaluacion> {
     @CsvBindByPosition(position = 0)
-    private int idUsuario;
+    private Integer idUsuario;
     @CsvBindByPosition(position = 1)
-    private int idPelicula;
+    private Integer idPelicula;
     @CsvBindByPosition(position = 2)
     private double puntaje;
     @CsvCustomBindByPosition(position = 3, converter = FechaConversor.class)
@@ -24,25 +24,21 @@ public class Evaluacion implements Comparable<Evaluacion> {
     @Override
     public int compareTo(Evaluacion otraEvaluacion) {
         return Double.compare(this.puntaje, otraEvaluacion.puntaje);
-//    }
-//
-//    public int convertFecha(String fecha) {
-//        return new Date(Long.parseLong(this.fecha));
     }
 
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdPelicula() {
+    public Integer getIdPelicula() {
         return idPelicula;
     }
 
-    public void setIdPelicula(int idPelicula) {
+    public void setIdPelicula(Integer idPelicula) {
         this.idPelicula = idPelicula;
     }
 

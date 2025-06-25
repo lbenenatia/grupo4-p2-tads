@@ -5,16 +5,16 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import um.edu.uy.entities.Evaluacion;
 import um.edu.uy.entities.Genero;
 import um.edu.uy.entities.Pelicula;
+import um.edu.uy.tads.hash.HashTableL;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 
 public class CargadorEvaluaciones {
-    private final Map<Integer, Pelicula> peliculas;
+    private final HashTableL<Integer, Pelicula> peliculas;
 
-    public CargadorEvaluaciones(Map<Integer, Pelicula> peliculas) {
+    public CargadorEvaluaciones(HashTableL<Integer, Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 

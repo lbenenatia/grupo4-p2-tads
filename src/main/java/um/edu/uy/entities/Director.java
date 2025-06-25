@@ -1,22 +1,24 @@
 package um.edu.uy.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
 import static um.edu.uy.tads.Sorting.mergeSort;
 
 public class Director implements Comparable<Director> {
-    private int id;
+    private Integer id;
     private String nombre;
-    private List<Pelicula> peliculas;
+    private ListaL<Pelicula> peliculas;
     private double mediana;
 
-    public Director(int id, String nombre) {
+    public Director(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.peliculas = new ArrayList<>();
+        this.peliculas = new LinkedListL<>();
         this.mediana = 0;
     }
+
+
 
     /// Precisamos tener la lista ordenada
     public void calcularMediana() { /// Preguntar si hacer mediana gral o a las medias de cada pelicula
@@ -67,6 +69,14 @@ public class Director implements Comparable<Director> {
         return Double.compare(this.mediana, otroDirector.mediana);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -75,11 +85,11 @@ public class Director implements Comparable<Director> {
         this.nombre = nombre;
     }
 
-    public List<Pelicula> getPeliculas() {
+    public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(List<Pelicula> peliculas) {
+    public void setPeliculas(ListaL<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 

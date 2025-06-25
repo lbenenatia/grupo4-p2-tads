@@ -1,23 +1,25 @@
 package um.edu.uy.entities;
+
 import um.edu.uy.cargadoresDeDatos.CargadorActoresDirectores;
 import um.edu.uy.cargadoresDeDatos.CargadorEvaluaciones;
 import um.edu.uy.cargadoresDeDatos.CargadorPeliculas;
-import java.util.*;
+import um.edu.uy.tads.hash.HashTableL;
+import um.edu.uy.tads.hash.HashTableLinkedL;
 
 
 public class UMovie {
-    private Map<Integer, Pelicula> peliculas;
-    private Map<Integer, Coleccion> colecciones;
-    private Map<Integer, Director> directores;
-    private Map<Integer, Genero> generos;
-    private Map<Integer, Actor> actores;
+    private HashTableL<Integer, Pelicula> peliculas;
+    private HashTableL<Integer, Coleccion> colecciones;
+    private HashTableL<Integer, Director> directores;
+    private HashTableL<Integer, Genero> generos;
+    private HashTableL<Integer, Actor> actores;
 
     public UMovie() {
-        this.peliculas = new Hashtable<>();
-        this.colecciones = new Hashtable<>();
-        this.directores = new Hashtable<>();
-        this.generos = new Hashtable<>();
-        this.actores = new Hashtable<>();
+        this.peliculas = new HashTableLinkedL<>();
+        this.colecciones = new HashTableLinkedL<>();
+        this.directores = new HashTableLinkedL<>();
+        this.generos = new HashTableLinkedL<>();
+        this.actores = new HashTableLinkedL<>();
     }
 
     public void cargarDatos(){
@@ -37,43 +39,43 @@ public class UMovie {
         System.out.println("Actores: " + actores.size());
     }
 
-    public Map<Integer, Pelicula> getPeliculas() {
+    public HashTableL<Integer, Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(Map<Integer, Pelicula> peliculas) {
+    public void setPeliculas(HashTableL<Integer, Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 
-    public Map<Integer, Coleccion> getColecciones() {
+    public HashTableL<Integer, Coleccion> getColecciones() {
         return colecciones;
     }
 
-    public void setColecciones(Map<Integer, Coleccion> colecciones) {
+    public void setColecciones(HashTableL<Integer, Coleccion> colecciones) {
         this.colecciones = colecciones;
     }
 
-    public Map<Integer, Director> getDirectores() {
+    public HashTableL<Integer, Director> getDirectores() {
         return directores;
     }
 
-    public void setDirectores(Map<Integer, Director> directores) {
+    public void setDirectores(HashTableL<Integer, Director> directores) {
         this.directores = directores;
     }
 
-    public Map<Integer, Genero> getGeneros() {
+    public HashTableL<Integer, Genero> getGeneros() {
         return generos;
     }
 
-    public void setGeneros(Map<Integer, Genero> generos) {
+    public void setGeneros(HashTableL<Integer, Genero> generos) {
         this.generos = generos;
     }
 
-    public Map<Integer, Actor> getActores() {
+    public HashTableL<Integer, Actor> getActores() {
         return actores;
     }
 
-    public void setActores(Map<Integer, Actor> actores) {
+    public void setActores(HashTableL<Integer, Actor> actores) {
         this.actores = actores;
     }
 }

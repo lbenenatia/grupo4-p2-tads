@@ -11,18 +11,18 @@ import um.edu.uy.converter.DirectorJson;
 import um.edu.uy.entities.Actor;
 import um.edu.uy.entities.Director;
 import um.edu.uy.entities.Pelicula;
+import um.edu.uy.tads.hash.HashTableL;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 
 public class CargadorActoresDirectores {
-    private final Map<Integer, Pelicula> peliculas;
-    private final Map<Integer, Director> directores;
-    private final Map<Integer, Actor> actores;
+    private final HashTableL<Integer, Pelicula> peliculas;
+    private final HashTableL<Integer, Director> directores;
+    private final HashTableL<Integer, Actor> actores;
 
-    public CargadorActoresDirectores(Map<Integer, Pelicula> peliculas, Map<Integer,
-                                    Director> directores, Map<Integer, Actor> actores) {
+    public CargadorActoresDirectores(HashTableL<Integer, Pelicula> peliculas, HashTableL<Integer,
+                                    Director> directores, HashTableL<Integer, Actor> actores) {
         this.peliculas = peliculas;
         this.directores = directores;
         this.actores = actores;

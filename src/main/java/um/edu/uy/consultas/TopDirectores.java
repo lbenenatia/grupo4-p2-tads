@@ -1,17 +1,15 @@
 package um.edu.uy.consultas;
 
 import um.edu.uy.entities.Director;
-import um.edu.uy.entities.Pelicula;
 import um.edu.uy.entities.UMovie;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 import static um.edu.uy.tads.Sorting.agregarOrdenado;
 import static um.edu.uy.tads.Sorting.ordenarUltimo;
 
 public class TopDirectores {
     public Director[] filtrarDirectores(UMovie umovie) {
-        Map<Integer, Director> directores = umovie.getDirectores();
+        HashTableL<Integer, Director> directores = umovie.getDirectores();
         Director[] top = new Director[10];
         int posVacia = 0;
 

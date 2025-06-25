@@ -1,20 +1,20 @@
 package um.edu.uy.entities;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
+import um.edu.uy.tads.hash.HashTableLinkedL;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
-public class Actor {
+public class Actor implements Comparable<Actor> {
     private String nombre;
-    private List<Pelicula> peliculas;
-    private Map<Integer, Integer> cantidadEvaluacionesPorMes;
-    private int idActor;
+    private ListaL<Pelicula> peliculas;
+    private HashTableL<Integer, Integer> cantidadEvaluacionesPorMes;
+    private Integer idActor;
 
     public Actor(int idActor, String nombre) {
-        this.peliculas = new ArrayList<Pelicula>();
+        this.peliculas = new LinkedListL<Pelicula>();
         this.nombre = nombre;
-        this.cantidadEvaluacionesPorMes = new Hashtable<>();
+        this.cantidadEvaluacionesPorMes = new HashTableLinkedL<>();
         for (int i = 0; i < 12; i++) {
             cantidadEvaluacionesPorMes.put(i, 0);
         }
@@ -49,19 +49,19 @@ public class Actor {
         this.nombre = nombre;
     }
 
-    public List<Pelicula> getPeliculas() {
+    public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(List<Pelicula> peliculas) {
+    public void setPeliculas(ListaL<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 
-    public Map<Integer, Integer> getCantidadEvaluacionesPorMes() {
+    public HashTableL<Integer, Integer> getCantidadEvaluacionesPorMes() {
         return cantidadEvaluacionesPorMes;
     }
 
-    public void setCantidadEvaluacionesPorMes(Map<Integer, Integer> cantidadEvaluacionesPorMes) {
+    public void setCantidadEvaluacionesPorMes(HashTableL<Integer, Integer> cantidadEvaluacionesPorMes) {
         this.cantidadEvaluacionesPorMes = cantidadEvaluacionesPorMes;
     }
 
@@ -71,5 +71,10 @@ public class Actor {
 
     public void setIdActor(int idActor) {
         this.idActor = idActor;
+    }
+
+    @Override
+    public int compareTo(Actor o) {
+        return this.idActor.compareTo(o.getIdActor());
     }
 }

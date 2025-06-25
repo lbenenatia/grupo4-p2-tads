@@ -1,7 +1,7 @@
 package um.edu.uy.converter;
 
 public class GeneroJson {
-    private int id;
+    private Integer id;
     private String name;
 
     public int getId() {

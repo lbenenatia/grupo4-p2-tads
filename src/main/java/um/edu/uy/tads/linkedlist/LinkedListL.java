@@ -1,6 +1,6 @@
 package um.edu.uy.tads.linkedlist;
 
-import um.edu.uy.tads.hash.Entrada;
+import java.util.Iterator;
 
 public class LinkedListL<E> implements ListaL<E> {
     private Nodo<E> head;
@@ -61,25 +61,32 @@ public class LinkedListL<E> implements ListaL<E> {
         return false;
     }
 
-    //Metodo para HashTable
-    public boolean containsKey(String clave) {
-        Nodo<E> auxiliar = head;
-        while (auxiliar != null) {
-            if (auxiliar.getValor() instanceof Entrada) {
-                Entrada entrada = (Entrada) auxiliar.getValor();
-                if (entrada.getClave().equals(clave)) {
-                    return true;
-                }
-            }
-            auxiliar = auxiliar.getNext();
-        }
-        return false;
-    }
-
     public boolean isEmpty() {
         if (size() == 0) {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Nodo<E> actual = head;
+
+            @Override
+            public boolean hasNext() {
+                return actual != null;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new RuntimeException(); //cambiar exception
+                }
+                E valor = actual.getValor();
+                actual = actual.getNext();
+                return valor;
+            }
+        };
     }
 }

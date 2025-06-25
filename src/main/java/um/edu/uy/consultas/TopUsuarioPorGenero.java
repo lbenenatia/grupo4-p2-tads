@@ -6,15 +6,14 @@ import um.edu.uy.entities.UMovie;
 import um.edu.uy.tads.bst.BinarySearchTree;
 import um.edu.uy.tads.bst.MyBinarySearchTree;
 import um.edu.uy.tads.bst.NodeBST;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 import static um.edu.uy.tads.Sorting.agregarOrdenado;
 import static um.edu.uy.tads.Sorting.ordenarUltimo;
 
 public class TopUsuarioPorGenero {
     public Genero[] top10Generos(UMovie umovie){
-        Map<Integer, Genero> generos = umovie.getGeneros();
+        HashTableL<Integer, Genero> generos = umovie.getGeneros();
         Genero[] top = new Genero[10];
 
         int posVacia = 0;

@@ -4,12 +4,11 @@ import um.edu.uy.entities.Actor;
 import um.edu.uy.entities.Evaluacion;
 import um.edu.uy.entities.Pelicula;
 import um.edu.uy.entities.UMovie;
-
-import java.util.Map;
+import um.edu.uy.tads.hash.HashTableL;
 
 public class TopActorPorMes {
     public Actor[] filtrarActores(UMovie uMovie){
-        Map<Integer, Actor> actores = uMovie.getActores();
+        HashTableL<Integer, Actor> actores = uMovie.getActores();
         Actor [] topActorMes = new Actor[12];
 
         for (Actor actor : actores.values()) {

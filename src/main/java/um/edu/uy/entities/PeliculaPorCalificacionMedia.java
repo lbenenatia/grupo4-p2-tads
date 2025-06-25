@@ -1,7 +1,7 @@
 
 package um.edu.uy.entities;
 
-public class PeliculaPorCalificacionMedia extends Pelicula implements Comparable<PeliculaPorCalificacionMedia>{
+public class PeliculaPorCalificacionMedia extends Pelicula{
 
     public PeliculaPorCalificacionMedia(Pelicula pelicula) {
         super(pelicula.getId(), pelicula.getTitulo(), pelicula.getIdiomaOriginal(), pelicula.getIngresos());
@@ -10,7 +10,7 @@ public class PeliculaPorCalificacionMedia extends Pelicula implements Comparable
     }
 
     @Override
-    public int compareTo(PeliculaPorCalificacionMedia otraPelicula) {
+    public int compareTo(Pelicula otraPelicula) {
         return Double.compare(this.getCalificacionMedia(), otraPelicula.getCalificacionMedia());
     }
 }
