@@ -6,5 +6,10 @@ public class PeliculaPorEvaluaciones extends Pelicula {
         super(pelicula.getId(), pelicula.getTitulo(), pelicula.getIdiomaOriginal(), pelicula.getIngresos());
         this.setEvaluaciones(pelicula.getEvaluaciones());
     }
+
+    @Override
+    public int compareTo(Pelicula otraPelicula) {
+        return Integer.compare(this.cantidadEvaluaciones(),otraPelicula.cantidadEvaluaciones());
+    }
 }
 

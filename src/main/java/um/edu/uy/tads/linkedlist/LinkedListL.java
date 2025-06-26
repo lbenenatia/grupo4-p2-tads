@@ -5,7 +5,9 @@ import java.util.Iterator;
 public class LinkedListL<E> implements ListaL<E> {
     private Nodo<E> head;
     private Nodo<E> tail;
+    private int largo;
 
+    @Override
     public void add(E item) {
         Nodo<E> nodo = new Nodo<>(item);
         if (head == null) {
@@ -15,8 +17,10 @@ public class LinkedListL<E> implements ListaL<E> {
             tail.setNext(nodo);
             tail = nodo;
         }
+        largo++;
     }
 
+    @Override
     public void remove(int index) {
         if (head == null) {
             throw new IndexOutOfBoundsException();
@@ -30,8 +34,10 @@ public class LinkedListL<E> implements ListaL<E> {
             }
             auxiliar.setNext(auxiliar.getNext().getNext());
         }
+        largo--;
     }
 
+    @Override
     public E get(int index) {
         Nodo<E> actual = head;
         for (int i = 0; i < index; i++) {
@@ -40,16 +46,12 @@ public class LinkedListL<E> implements ListaL<E> {
         return actual.getValor();
     }
 
+    @Override
     public int size() {
-        int length = 0;
-        Nodo<E> auxiliar = head;
-        while (auxiliar != null) {
-            auxiliar = auxiliar.getNext();
-            length++;
-        }
-        return length;
+        return largo;
     }
 
+    @Override
     public boolean contains(E item) {
         Nodo<E> auxiliar = head;
         while (auxiliar != null) {
@@ -61,6 +63,7 @@ public class LinkedListL<E> implements ListaL<E> {
         return false;
     }
 
+    @Override
     public boolean isEmpty() {
         if (size() == 0) {
             return true;
@@ -88,5 +91,20 @@ public class LinkedListL<E> implements ListaL<E> {
                 return valor;
             }
         };
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder resultado = new StringBuilder("[");
+        Nodo<E> temp = head;
+        for (int i = 0; i < this.largo; i++) {
+            resultado.append(temp.getValor().toString());
+            if (temp.getNext() != null) {
+                resultado.append(", ");
+            }
+            temp = temp.getNext();
+        }
+        resultado.append("]");
+        return resultado.toString();
     }
 }

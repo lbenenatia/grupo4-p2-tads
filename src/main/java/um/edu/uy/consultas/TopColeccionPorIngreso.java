@@ -48,7 +48,7 @@ public class TopColeccionPorIngreso {
         for (int i = 0; i < 5; i++) {
             Coleccion coleccion = top5[i];
             System.out.println(coleccion.getId() + ", " + coleccion.getTitulo() + ", " + coleccion.cantidadPeliculas() +
-                    ", " + coleccion.idPeliculas() + ", " + coleccion.getIngresos());
+                    ", " + coleccion.idPeliculas().toString() + ", " + coleccion.getIngresos());
         }
     }
 }

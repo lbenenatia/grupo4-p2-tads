@@ -1,6 +1,6 @@
 package um.edu.uy.tads.bst;
 
-public class BinarySearchTree<K extends Comparable<K>, T> implements MyBinarySearchTree<K, T> {
+public class BinarySearchTree<K extends Comparable<K>, T extends Comparable<T>> implements MyBinarySearchTree<K, T> {
 
     private NodeBST<K, T> root;
 
@@ -84,12 +84,10 @@ public class BinarySearchTree<K extends Comparable<K>, T> implements MyBinarySea
 
     private int sizeBinario(NodeBST<K, T> nodo) {
 
-        // si esta vacio el arbol
         if(nodo == null) {
             return 0;
         }
 
-        // cuenta todos los nodos de los subarboles de la raiz
         return 1 + sizeBinario(nodo.getLeftChild()) + sizeBinario(nodo.getRightChild());
     }
 
@@ -133,6 +131,75 @@ public class BinarySearchTree<K extends Comparable<K>, T> implements MyBinarySea
             postorder(node.getRightChild());
             System.out.print(node.getKey() + " ");
         }
+    }
+
+    @Override
+    public void insertPorData(K key, T data) {
+        root = insertRecursivePorData(root, key, data);
+    }
+
+    private NodeBST<K, T> insertRecursivePorData(NodeBST<K, T> current, K key, T data) {
+        if (current == null) return new NodeBST<>(key, data);
+
+        int compare = data.compareTo(current.getData());
+        if (compare < 0) {
+            current.setLeftChild(insertRecursivePorData(current.getLeftChild(), key, data));
+        } else if (compare > 0){
+            current.setRightChild(insertRecursivePorData(current.getRightChild(), key, data));
+        } else {
+            if (current.getKey().equals(key)) {
+                throw new IllegalArgumentException("Nodo duplicado: misma key y data");
+            } else {
+                current.setRightChild(insertRecursivePorData(current.getRightChild(), key, data));
+            }
+        }
+        return current;
+    }
+
+    @Override
+    public void deletePorData(K key, T data) {
+        root = deleteRecursivePorData(root, key, data);
+    }
+
+    private NodeBST<K, T> deleteRecursivePorData(NodeBST<K, T> current, K key, T data) {
+        if (current == null) return null;
+
+        int compare = data.compareTo(current.getData());
+        if (compare < 0) {
+            current.setLeftChild(deleteRecursivePorData(current.getLeftChild(), key, data));
+        } else if (compare > 0) {
+            current.setRightChild(deleteRecursivePorData(current.getRightChild(), key, data));
+        } else if (compare == 0) {
+            if (!current.getKey().equals(key)) {
+                current.setRightChild(deleteRecursivePorData(current.getRightChild(), key, data));
+                return current;
+                }
+        } else {
+            if (current.getLeftChild() == null) return current.getRightChild();
+            if (current.getRightChild() == null) return current.getLeftChild();
+
+            NodeBST<K, T> min = findMinNode(current.getRightChild());
+            current.setKey(min.getKey());
+            current.setData(min.getData());
+            current.setRightChild(deleteRecursivePorData(current.getRightChild(), min.getKey(), min.getData()));
+        }
+
+        return current;
+    }
+
+    @Override
+    public NodeBST<K, T> maxValueNode(NodeBST<K, T> current) {
+        if (current == null) return null;
+        NodeBST<K, T> leftNode = maxValueNode(current.getLeftChild());
+        NodeBST<K, T> rightNode = maxValueNode(current.getRightChild());
+        NodeBST<K, T> max = current;
+        if (leftNode != null && leftNode.getData().compareTo(max.getData()) > 0) {
+            max = leftNode;
+        }
+        if (rightNode != null && rightNode.getData().compareTo(max.getData()) > 0) {
+            max = rightNode;
+        }
+        return max;
     }
 
     @Override

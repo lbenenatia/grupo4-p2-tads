@@ -19,4 +19,10 @@ public interface MyBinarySearchTree<K extends Comparable<K>, T> {
     NodeBST<Integer, Integer> maximo(NodeBST<Integer, Integer> nodoActual);
 
     NodeBST<K, T> root();
+
+    void insertPorData(K key, T data);
+
+    void deletePorData(K key, T data);
+
+    NodeBST<K, T> maxValueNode(NodeBST<K, T> current);
 }

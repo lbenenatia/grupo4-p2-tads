@@ -15,7 +15,6 @@ import um.edu.uy.tads.hash.HashTableL;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 
 public class CargadorPeliculas {
     private final HashTableL<Integer, Pelicula> peliculas;
@@ -35,7 +34,7 @@ public class CargadorPeliculas {
             try {
                 reader.readNext(); // Suponiendo que hay encabezado
             } catch (CsvValidationException | IOException e) {
-                throw new RuntimeException("Error al leer el encabezado del archivo CSV", e);
+                System.err.println("Error al leer el encabezado del archivo CSV");
             }
             String[] linea = null;
             int numeroLinea = 1;
@@ -48,7 +47,6 @@ public class CargadorPeliculas {
                     numeroLinea++;
                     Pelicula pelicula = mapLineaToPelicula(linea);
                     if (pelicula == null) {
-                        ///System.err.println("Ignorando línea " + numeroLinea + " debido a error en parseo.");
                         continue;
                     }
 
@@ -85,11 +83,11 @@ public class CargadorPeliculas {
                 } catch (CsvValidationException | IOException e) {
                     System.err.println("Error al leer una línea del CSV.");
                 } catch (Exception e) {
-                    ///System.err.println("Error en línea " + numeroLinea + ": " + Arrays.toString(linea));
+                    System.err.println("La línea está mal formateada");;
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al abrir o cerrar el archivo: " + nombreArchivo, e);
+            System.err.println("Error al abrir o cerrar el archivo: " + nombreArchivo);
         }
     }
 

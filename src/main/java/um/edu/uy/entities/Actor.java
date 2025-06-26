@@ -12,7 +12,7 @@ public class Actor implements Comparable<Actor> {
     private Integer idActor;
 
     public Actor(int idActor, String nombre) {
-        this.peliculas = new LinkedListL<Pelicula>();
+        this.peliculas = new LinkedListL<>();
         this.nombre = nombre;
         this.cantidadEvaluacionesPorMes = new HashTableLinkedL<>();
         for (int i = 0; i < 12; i++) {

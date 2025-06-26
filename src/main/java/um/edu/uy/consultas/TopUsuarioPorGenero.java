@@ -52,7 +52,8 @@ public class TopUsuarioPorGenero {
                     evaluacionesPorUsuario.insert(idUsuario, 1);
                 }
             }
-            topUsuarioPorGenero[posVacia] = evaluacionesPorUsuario.maximo(evaluacionesPorUsuario.root());
+            NodeBST<Integer, Integer> maximo = evaluacionesPorUsuario.maxValueNode(evaluacionesPorUsuario.root());
+            topUsuarioPorGenero[posVacia] = maximo;
             posVacia++;
         }
         return topUsuarioPorGenero;

@@ -26,7 +26,6 @@ public class CargadorEvaluaciones {
                 try {
                     Pelicula peliculaEvaluada = peliculas.get(evaluacion.getIdPelicula());
                     if (peliculaEvaluada == null) {
-                        ///System.err.println("Pelicula no encontrada para evaluación con ID: " + evaluacion.getIdPelicula());
                         continue; // Saltea la evaluación si la película no existe
                     }
 
@@ -40,10 +39,10 @@ public class CargadorEvaluaciones {
                 }
             }
         } catch (FileNotFoundException e) {
-            throw new RuntimeException("Archivo no encontrado: " + nombreArchivo, e);
+            System.err.println("Archivo no encontrado: " + nombreArchivo);
         } catch (IOException e) {
-            throw new RuntimeException("Error de I/O al procesar el archivo: " + nombreArchivo, e);
-        } catch (RuntimeException e) {
+            System.err.println("Error de I/O al procesar el archivo: " + nombreArchivo);
+        } catch (RuntimeException e) { // Ver exception!
             ///Errores del CSVToBean
             System.err.println("Error al parsear el archivo CSV: " + e.getMessage());
             throw e;
