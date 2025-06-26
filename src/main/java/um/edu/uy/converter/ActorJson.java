@@ -1,6 +1,6 @@
 package um.edu.uy.converter;
 
-public class ColeccionJson {
+public class ActorJson {
     private Integer id;
     private String name;
 
@@ -8,15 +8,7 @@ public class ColeccionJson {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

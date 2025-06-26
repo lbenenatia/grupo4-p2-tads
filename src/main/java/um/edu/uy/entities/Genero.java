@@ -1,32 +1,37 @@
 package um.edu.uy.entities;
 
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
 public class Genero implements Comparable<Genero> {
-    private int id;
+    private Integer id;
     private String nombre;
-    private List<Evaluacion> evaluaciones;
+    private ListaL<Evaluacion> evaluaciones;
 
-    public Genero() {
+    public Genero(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.evaluaciones = evaluaciones;
+        this.evaluaciones = new LinkedListL<>();
     }
 
     public void agregarEvaluacion(Evaluacion e) {
         this.evaluaciones.add(e);
     }
 
-    @Override
-    public int compareTo(Genero otroGenero) {
-        return Integer.compare(this.getEvaluaciones().size(), otroGenero.getEvaluaciones().size());
+    public int cantidadEvaluaciones() {
+        return this.evaluaciones.size();
     }
 
-    public int getId() {
+    @Override
+    public int compareTo(Genero otroGenero) {
+        return Integer.compare(this.cantidadEvaluaciones(), otroGenero.cantidadEvaluaciones());
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -38,11 +43,11 @@ public class Genero implements Comparable<Genero> {
         this.nombre = nombre;
     }
 
-    public List<Evaluacion> getEvaluaciones() {
+    public ListaL<Evaluacion> getEvaluaciones() {
         return evaluaciones;
     }
 
-    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+    public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
     }
 }

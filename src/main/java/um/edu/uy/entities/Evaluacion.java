@@ -1,18 +1,18 @@
 package um.edu.uy.entities;
 
 import com.opencsv.bean.CsvBindByPosition;
-
-import java.util.Date;
+import com.opencsv.bean.CsvCustomBindByPosition;
+import um.edu.uy.converter.FechaConversor;
 
 public class Evaluacion implements Comparable<Evaluacion> {
     @CsvBindByPosition(position = 0)
-    private int idUsuario;
+    private Integer idUsuario;
     @CsvBindByPosition(position = 1)
-    private int idPelicula;
+    private Integer idPelicula;
     @CsvBindByPosition(position = 2)
     private double puntaje;
-    @CsvBindByPosition(position = 3)
-    private String fecha;
+    @CsvCustomBindByPosition(position = 3, converter = FechaConversor.class)
+    private int fecha;
 
     public Evaluacion() {
         this.idUsuario = idUsuario;
@@ -26,23 +26,19 @@ public class Evaluacion implements Comparable<Evaluacion> {
         return Double.compare(this.puntaje, otraEvaluacion.puntaje);
     }
 
-    public Date convertFecha(String fecha) {
-        return new Date(Long.parseLong(this.fecha));
-    }
-
-    public int getIdUsuario() {
+    public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public int getIdPelicula() {
+    public Integer getIdPelicula() {
         return idPelicula;
     }
 
-    public void setIdPelicula(int idPelicula) {
+    public void setIdPelicula(Integer idPelicula) {
         this.idPelicula = idPelicula;
     }
 
@@ -52,5 +48,13 @@ public class Evaluacion implements Comparable<Evaluacion> {
 
     public void setPuntaje(double puntaje) {
         this.puntaje = puntaje;
+    }
+
+    public int getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(int fecha) {
+        this.fecha = fecha;
     }
 }

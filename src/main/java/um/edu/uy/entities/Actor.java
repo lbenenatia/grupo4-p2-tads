@@ -1,20 +1,42 @@
 package um.edu.uy.entities;
 
-import java.util.List;
+import um.edu.uy.tads.hash.HashTableL;
+import um.edu.uy.tads.hash.HashTableLinkedL;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
-public class Actor {
+public class Actor implements Comparable<Actor> {
     private String nombre;
-    private List<Pelicula> peliculas;
-    private int cantidadPeliculasPorMes;
+    private ListaL<Pelicula> peliculas;
+    private HashTableL<Integer, Integer> cantidadEvaluacionesPorMes;
+    private Integer idActor;
 
-    public Actor() {
-        this.peliculas = peliculas;
+    public Actor(int idActor, String nombre) {
+        this.peliculas = new LinkedListL<>();
         this.nombre = nombre;
-        this.cantidadPeliculasPorMes = 0;
+        this.cantidadEvaluacionesPorMes = new HashTableLinkedL<>();
+        for (int i = 0; i < 12; i++) {
+            cantidadEvaluacionesPorMes.put(i, 0);
+        }
+        this.idActor = idActor;
     }
 
-    public void actualizarCantidad(String mes){
+    public int cantidadPeliculasPorMes(int mes) {
+        int cantidad = 0;
+        for (Pelicula pelicula : peliculas) {
+            for (Evaluacion evaluacion : pelicula.getEvaluaciones()){
+                if (evaluacion.getFecha() == mes){
+                    cantidad += 1;
+                    break;
+                }
+            }
+        }
+        return cantidad;
+    }
 
+
+    public void agregarPelicula(Pelicula pelicula) {
+        this.peliculas.add(pelicula);
     }
 
     /// Ver tema tiempo/mes de las peliculas
@@ -27,11 +49,32 @@ public class Actor {
         this.nombre = nombre;
     }
 
-    public List<Pelicula> getPeliculas() {
+    public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(List<Pelicula> peliculas) {
+    public void setPeliculas(ListaL<Pelicula> peliculas) {
         this.peliculas = peliculas;
+    }
+
+    public HashTableL<Integer, Integer> getCantidadEvaluacionesPorMes() {
+        return cantidadEvaluacionesPorMes;
+    }
+
+    public void setCantidadEvaluacionesPorMes(HashTableL<Integer, Integer> cantidadEvaluacionesPorMes) {
+        this.cantidadEvaluacionesPorMes = cantidadEvaluacionesPorMes;
+    }
+
+    public int getIdActor() {
+        return idActor;
+    }
+
+    public void setIdActor(int idActor) {
+        this.idActor = idActor;
+    }
+
+    @Override
+    public int compareTo(Actor o) {
+        return this.idActor.compareTo(o.getIdActor());
     }
 }

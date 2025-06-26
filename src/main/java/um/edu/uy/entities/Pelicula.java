@@ -1,31 +1,35 @@
 package um.edu.uy.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
-public class Pelicula implements Comparable<Pelicula>, Ingresable {
-    private int id;
+public class Pelicula implements Comparable<Pelicula> {
+    private Integer id;
     private String titulo;
     private String idiomaOriginal;
     private double ingresos;
-    private List<Genero> generos;
+    private ListaL<Genero> generos;
     private boolean perteneceAColeccion = false;
-    /// Actualizarla cuando tiene
+    private ListaL<Actor> actores;
     private double calificacionMedia;
-    private List<Evaluacion> evaluaciones;
+    private ListaL<Evaluacion> evaluaciones;
 
-    public Pelicula() {
+    public Pelicula(Integer id, String titulo, String idiomaOriginal, double ingresos) { /// Va a haber que agregarle las cosas necesarias al constructor (GENERA PROBLEMAS)
         this.id = id;
         this.titulo = titulo;
         this.idiomaOriginal = idiomaOriginal;
         this.ingresos = ingresos;
-        this.generos = new ArrayList<>();
+        this.generos = new LinkedListL<>();
         this.calificacionMedia = 0;
         this.perteneceAColeccion = perteneceAColeccion;
-        this.evaluaciones = evaluaciones;
+        this.evaluaciones = new LinkedListL<>();
+        this.actores = new LinkedListL<>();
     }
 
     public void calcularMedia() {
+        if(this.evaluaciones.isEmpty()) {
+            return;
+        }
         double puntajeTotal = 0;
         for (Evaluacion e : this.evaluaciones) {
             puntajeTotal += e.getPuntaje();
@@ -38,24 +42,26 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
         this.evaluaciones.add(e);
     }
 
+    public void agregarActor(Actor actor) {
+        this.actores.add(actor);
+    }
+
+    public void agregarGenero(Genero g) {
+        this.generos.add(g);
+    }
+
     public int cantidadEvaluaciones() {
         return this.getEvaluaciones().size();
     }
 
-    @Override
-    public int compareTo(Pelicula otraPelicula) {
-        return Double.compare(this.calificacionMedia, otraPelicula.calificacionMedia);
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    @Override
     public String getTitulo() {
         return titulo;
     }
@@ -72,7 +78,6 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
         this.idiomaOriginal = idiomaOriginal;
     }
 
-    @Override
     public double getIngresos() {
         return ingresos;
     }
@@ -81,11 +86,11 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
         this.ingresos = ingresos;
     }
 
-    public List<Genero> getGeneros() {
+    public ListaL<Genero> getGeneros() {
         return generos;
     }
 
-    public void setGeneros(List<Genero> generos) {
+    public void setGeneros(ListaL<Genero> generos) {
         this.generos = generos;
     }
 
@@ -105,11 +110,24 @@ public class Pelicula implements Comparable<Pelicula>, Ingresable {
         this.perteneceAColeccion = perteneceAColeccion;
     }
 
-    public List<Evaluacion> getEvaluaciones() {
+    public ListaL<Evaluacion> getEvaluaciones() {
         return evaluaciones;
     }
 
-    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+    public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
+    }
+
+    public ListaL<Actor> getActores() {
+        return actores;
+    }
+
+    public void setActores(ListaL<Actor> actores) {
+        this.actores = actores;
+    }
+
+    @Override
+    public int compareTo(Pelicula otraPelicula) {
+        return Double.compare(this.getCalificacionMedia(), otraPelicula.getCalificacionMedia());
     }
 }

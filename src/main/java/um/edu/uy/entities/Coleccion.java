@@ -3,26 +3,24 @@ package um.edu.uy.entities;
 import com.opencsv.bean.CsvCustomBindByPosition;
 import um.edu.uy.converter.IdColeccionJson;
 import um.edu.uy.converter.TituloColeccionJson;
+import um.edu.uy.tads.linkedlist.LinkedListL;
+import um.edu.uy.tads.linkedlist.ListaL;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Coleccion implements Ingresable {
+public class Coleccion implements Comparable<Coleccion> {
     @CsvCustomBindByPosition(position = 1, converter = IdColeccionJson.class)
-    private int id;
-    private List<Pelicula> peliculas;
+    private Integer id;
+    private ListaL<Pelicula> peliculas;
     private double ingresos;
     @CsvCustomBindByPosition(position = 1, converter = TituloColeccionJson.class)
     private String titulo;
 
-    public Coleccion() {
+    public Coleccion(Integer id, String titulo) {
         this.id = id;
-        this.peliculas = new ArrayList<>();
+        this.peliculas = new LinkedListL<>();
         this.ingresos = 0;
         this.titulo = titulo;
     }
 
-    /// Podría hacerse esto y al agregar pelicula ya se va calculando el ingreso
     public void agregarPelicula(Pelicula p) {
         this.peliculas.add(p);
         this.ingresos += p.getIngresos();
@@ -32,8 +30,8 @@ public class Coleccion implements Ingresable {
         return this.getPeliculas().size();
     }
 
-    public List<Integer> idPeliculas() {
-        List<Integer> ids = new ArrayList<>();
+    public ListaL<Integer> idPeliculas() {
+        ListaL<Integer> ids = new LinkedListL<>();
 
         for (Pelicula pelicula : peliculas) {
             ids.add(pelicula.getId());
@@ -41,23 +39,27 @@ public class Coleccion implements Ingresable {
         return ids;
     }
 
-    public int getId() {
+    @Override
+    public int compareTo(Coleccion otraColeccion) {
+        return Double.compare(this.ingresos, otraColeccion.getIngresos());
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public List<Pelicula> getPeliculas() {
+    public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
 
-    public void setPeliculas(List<Pelicula> peliculas) {
+    public void setPeliculas(ListaL<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 
-    @Override
     public double getIngresos() {
         return ingresos;
     }
@@ -66,7 +68,6 @@ public class Coleccion implements Ingresable {
         this.ingresos = ingresos;
     }
 
-    @Override
     public String getTitulo() {
         return titulo;
     }
