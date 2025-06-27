@@ -26,7 +26,7 @@ public class CargadorPeliculas {
                              Map<Integer, Genero> generos) {
         this.peliculas = peliculas;
         this.colecciones = colecciones;
-        this.generos = generos;
+        this.generos = generos; 
     }
 
     public void cargar (String nombreArchivo) {
