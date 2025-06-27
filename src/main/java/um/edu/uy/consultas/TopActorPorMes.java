@@ -47,7 +47,7 @@ public class TopActorPorMes {
         meses[11] = "Diciembre";
 
         for (int i = 0; i < 12; i++) {
-            System.out.println(meses[i] + ", " + top[i].getNombre() + ", " + top[i].getCantidadEvaluacionesPorMes().get(i) + ", " + top[i].cantidadPeliculasPorMes(i));
+            System.out.println(meses[i] + ", " + top[i].getNombre() + ", " +  top[i].cantidadPeliculasPorMes(i) + ", " + top[i].getCantidadEvaluacionesPorMes().get(i));
         }
     }
 }
