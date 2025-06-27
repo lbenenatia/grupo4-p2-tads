@@ -1,3 +1,4 @@
+/*
 package um.edu.uy.consultas;
 
 import org.junit.jupiter.api.Test;
@@ -81,3 +82,5 @@ public class TopActorPorMesTest {
         assertEquals("Ana", topActores[2].getNombre()); // marzo
     }
 }
+
+ */

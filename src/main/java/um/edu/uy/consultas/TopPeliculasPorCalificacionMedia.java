@@ -37,7 +37,7 @@ public class TopPeliculasPorCalificacionMedia {
     public void ejecutar(UMovie umovie) {
         PeliculaPorCalificacionMedia[] top10 = filtrarPorCalificacionMedia(umovie);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             System.out.println(top10[i].getId() + ", " + top10[i].getTitulo() + ", " + top10[i].getCalificacionMedia());
         }
     }

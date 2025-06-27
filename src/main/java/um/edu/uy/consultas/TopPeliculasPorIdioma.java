@@ -23,8 +23,7 @@ public class TopPeliculasPorIdioma {
         int posVaciaIt = 0;
         int posVaciaPt = 0;
 
-        for (Pelicula pelicula : peliculas.values()) { /// En nuestro caso probablemente tengamos que recorrer con un i
-            if (pelicula.cantidadEvaluaciones() == 0) continue;
+        for (Pelicula pelicula : peliculas.values()) {
             String idioma = pelicula.getIdiomaOriginal();
             PeliculaPorEvaluaciones nueva = new PeliculaPorEvaluaciones(pelicula);
             if (idioma.equals("en")) {
