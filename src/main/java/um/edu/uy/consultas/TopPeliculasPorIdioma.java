@@ -48,17 +48,6 @@ public class TopPeliculasPorIdioma {
                     }
                 }
             }
-            else if (idioma.equals("es")) {
-                if (posVaciaEs < 5) {
-                    agregarOrdenado(nueva, espaniol, posVaciaEs);
-                    posVaciaEs++;
-                } else {
-                    if (nueva.compareTo(espaniol[4])>0) {
-                        espaniol[4] = nueva;
-                        ordenarUltimo(espaniol, 4);
-                    }
-                }
-            }
             else if (idioma.equals("it")) {
                 if (posVaciaIt < 5) {
                     agregarOrdenado(nueva, italiano, posVaciaIt);
@@ -67,6 +56,17 @@ public class TopPeliculasPorIdioma {
                     if (nueva.compareTo(italiano[4])>0) {
                         italiano[4] = nueva;
                         ordenarUltimo(italiano, 4);
+                    }
+                }
+            }
+            else if (idioma.equals("es")) {
+                if (posVaciaEs < 5) {
+                    agregarOrdenado(nueva, espaniol, posVaciaEs);
+                    posVaciaEs++;
+                } else {
+                    if (nueva.compareTo(espaniol[4])>0) {
+                        espaniol[4] = nueva;
+                        ordenarUltimo(espaniol, 4);
                     }
                 }
             }
@@ -82,7 +82,7 @@ public class TopPeliculasPorIdioma {
                 }
             }
         }
-        return new ListaPeliculas(ingles, frances, espaniol, italiano, portugues);
+        return new ListaPeliculas(ingles, frances, italiano, espaniol, portugues);
     }
 
     public String ejecutar(UMovie umovie){
