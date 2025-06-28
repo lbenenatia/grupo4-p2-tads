@@ -225,35 +225,4 @@ public class HashTableLinkedL<K, T extends Comparable<T>> implements HashTableL<
         return null; // No se encontró la clave
     }
 
-    public ListaL<Entrada<K,T>>[] getHashTable() {
-        return hashTable;
-    }
-
-    public void setHashTable(ListaL<Entrada<K,T>>[] hashTable) {
-        this.hashTable = hashTable;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
-
-    public int getAmountofData() {
-        return amountofData;
-    }
-
-    public void setAmountofData(int amountofData) {
-        this.amountofData = amountofData;
-    }
-
-    public double getFactordeCarga() {
-        return factordeCarga;
-    }
-
-    public void setFactordeCarga(double factordeCarga) {
-        this.factordeCarga = factordeCarga;
-    }
 }

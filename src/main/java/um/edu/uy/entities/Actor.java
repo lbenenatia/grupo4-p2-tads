@@ -39,14 +39,8 @@ public class Actor implements Comparable<Actor> {
         this.peliculas.add(pelicula);
     }
 
-    /// Ver tema tiempo/mes de las peliculas
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public ListaL<Pelicula> getPeliculas() {
@@ -61,16 +55,8 @@ public class Actor implements Comparable<Actor> {
         return cantidadEvaluacionesPorMes;
     }
 
-    public void setCantidadEvaluacionesPorMes(HashTableL<Integer, Integer> cantidadEvaluacionesPorMes) {
-        this.cantidadEvaluacionesPorMes = cantidadEvaluacionesPorMes;
-    }
-
     public int getIdActor() {
         return idActor;
-    }
-
-    public void setIdActor(int idActor) {
-        this.idActor = idActor;
     }
 
     @Override

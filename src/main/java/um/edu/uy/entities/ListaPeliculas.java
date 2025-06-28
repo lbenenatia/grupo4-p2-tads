@@ -51,39 +51,20 @@ public class ListaPeliculas {
         return ingles;
     }
 
-    public void setIngles(PeliculaPorEvaluaciones[] ingles) {
-        this.ingles = ingles;
-    }
-
     public PeliculaPorEvaluaciones[] getFrances() {
         return frances;
-    }
-
-    public void setFrances(PeliculaPorEvaluaciones[] frances) {
-        this.frances = frances;
     }
 
     public PeliculaPorEvaluaciones[] getEspaniol() {
         return espaniol;
     }
 
-    public void setEspaniol(PeliculaPorEvaluaciones[] espaniol) {
-        this.espaniol = espaniol;
-    }
-
     public PeliculaPorEvaluaciones[] getItaliano() {
         return italiano;
-    }
-
-    public void setItaliano(PeliculaPorEvaluaciones[] italiano) {
-        this.italiano = italiano;
     }
 
     public PeliculaPorEvaluaciones[] getPortugues() {
         return portugues;
     }
 
-    public void setPortugues(PeliculaPorEvaluaciones[] portugues) {
-        this.portugues = portugues;
-    }
 }

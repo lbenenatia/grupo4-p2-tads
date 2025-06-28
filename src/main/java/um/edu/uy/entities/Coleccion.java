@@ -48,10 +48,6 @@ public class Coleccion implements Comparable<Coleccion> {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public ListaL<Pelicula> getPeliculas() {
         return peliculas;
     }
@@ -64,15 +60,7 @@ public class Coleccion implements Comparable<Coleccion> {
         return ingresos;
     }
 
-    public void setIngresos(double ingresos) {
-        this.ingresos = ingresos;
-    }
-
     public String getTitulo() {
         return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
     }
 }

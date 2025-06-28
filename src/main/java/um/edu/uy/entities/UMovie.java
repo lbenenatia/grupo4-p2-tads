@@ -45,31 +45,15 @@ public class UMovie {
         return colecciones;
     }
 
-    public void setColecciones(HashTableL<Integer, Coleccion> colecciones) {
-        this.colecciones = colecciones;
-    }
-
     public HashTableL<Integer, Director> getDirectores() {
         return directores;
-    }
-
-    public void setDirectores(HashTableL<Integer, Director> directores) {
-        this.directores = directores;
     }
 
     public HashTableL<Integer, Genero> getGeneros() {
         return generos;
     }
 
-    public void setGeneros(HashTableL<Integer, Genero> generos) {
-        this.generos = generos;
-    }
-
     public HashTableL<Integer, Actor> getActores() {
         return actores;
-    }
-
-    public void setActores(HashTableL<Integer, Actor> actores) {
-        this.actores = actores;
     }
 }

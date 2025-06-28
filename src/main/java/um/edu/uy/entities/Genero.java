@@ -31,23 +31,11 @@ public class Genero implements Comparable<Genero> {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public ListaL<Evaluacion> getEvaluaciones() {
         return evaluaciones;
-    }
-
-    public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
-        this.evaluaciones = evaluaciones;
     }
 }

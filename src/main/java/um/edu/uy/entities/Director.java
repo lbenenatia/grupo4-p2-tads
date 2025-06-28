@@ -18,8 +18,7 @@ public class Director implements Comparable<Director> {
         this.mediana = 0;
     }
 
-    /// Precisamos tener la lista ordenada
-    public void calcularMediana() { /// Preguntar si hacer mediana gral o a las medias de cada pelicula
+    public void calcularMediana() {
         int cantidadPuntajes = 0;
         for (Pelicula p : peliculas) {
             for (Evaluacion e : p.getEvaluaciones()) {
@@ -71,16 +70,8 @@ public class Director implements Comparable<Director> {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public ListaL<Pelicula> getPeliculas() {
@@ -93,9 +84,5 @@ public class Director implements Comparable<Director> {
 
     public double getMediana() {
         return mediana;
-    }
-
-    public void setMediana(double mediana) {
-        this.mediana = mediana;
     }
 }

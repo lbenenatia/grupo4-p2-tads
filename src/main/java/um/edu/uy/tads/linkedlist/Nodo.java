@@ -13,10 +13,6 @@ public class Nodo<E> {
         return valor;
     }
 
-    public void setValor(E valor) {
-        this.valor = valor;
-    }
-
     public Nodo<E> getNext() {
         return next;
     }

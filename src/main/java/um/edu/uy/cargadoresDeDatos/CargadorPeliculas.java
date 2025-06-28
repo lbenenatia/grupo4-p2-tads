@@ -100,7 +100,6 @@ public class CargadorPeliculas {
             }
             return p;
         } catch (Exception e) {
-            ///System.err.println("Error parseando línea: " + Arrays.toString(linea));
             return null; // Indica que esta línea no es válida
         }
     }

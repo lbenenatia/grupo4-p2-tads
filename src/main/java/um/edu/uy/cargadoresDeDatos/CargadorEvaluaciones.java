@@ -42,7 +42,7 @@ public class CargadorEvaluaciones {
             System.err.println("Archivo no encontrado: " + nombreArchivo);
         } catch (IOException e) {
             System.err.println("Error de I/O al procesar el archivo: " + nombreArchivo);
-        } catch (RuntimeException e) { // Ver exception!
+        } catch (RuntimeException e) {
             ///Errores del CSVToBean
             System.err.println("Error al parsear el archivo CSV: " + e.getMessage());
             throw e;

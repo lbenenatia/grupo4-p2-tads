@@ -58,24 +58,12 @@ public class Pelicula implements Comparable<Pelicula> {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getIdiomaOriginal() {
         return idiomaOriginal;
-    }
-
-    public void setIdiomaOriginal(String idiomaOriginal) {
-        this.idiomaOriginal = idiomaOriginal;
     }
 
     public double getIngresos() {
@@ -88,10 +76,6 @@ public class Pelicula implements Comparable<Pelicula> {
 
     public ListaL<Genero> getGeneros() {
         return generos;
-    }
-
-    public void setGeneros(ListaL<Genero> generos) {
-        this.generos = generos;
     }
 
     public double getCalificacionMedia() {
@@ -116,14 +100,6 @@ public class Pelicula implements Comparable<Pelicula> {
 
     public void setEvaluaciones(ListaL<Evaluacion> evaluaciones) {
         this.evaluaciones = evaluaciones;
-    }
-
-    public ListaL<Actor> getActores() {
-        return actores;
-    }
-
-    public void setActores(ListaL<Actor> actores) {
-        this.actores = actores;
     }
 
     @Override
